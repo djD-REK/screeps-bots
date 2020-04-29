@@ -17,7 +17,12 @@ function actionHarvest(creep) {
         visualizePathStyle: { stroke: "#ffaa00" },
       })
     }
+    if (creep.harvest(sources[creep.memory.sourceNumber]) === OK) {
+      // log target while harvesting
+      creep.memory.target = { x: creep.pos.x, y: creep.pos.y }
+    }
   } else {
+    creep.memory.target = null
     actionDeposit(creep)
   }
 }
