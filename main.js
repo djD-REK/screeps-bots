@@ -1,5 +1,9 @@
 var roleDefender = require("roleDefender")
 var roleMiner = require("roleMiner")
+var roleBuilder = require("roleDefender")
+var roleFetcher = require("roleMiner")
+var roleHarvester = require("roleDefender")
+var roleUpgrader = require("roleMiner")
 
 const upperFirstCharacter = (string) =>
   string.slice(0, 1).toUpperCase() + string.slice(1)
@@ -101,6 +105,18 @@ module.exports.loop = function () {
     }
     if (creep.memory.role == "miner") {
       roleMiner.run(creep)
+    }
+    if (creep.memory.role == "fetcher") {
+      roleFetcher.run(creep)
+    }
+    if (creep.memory.role == "harvester") {
+      roleHarvester.run(creep)
+    }
+    if (creep.memory.role == "upgrader") {
+      roleUpgrader.run(creep)
+    }
+    if (creep.memory.role == "builder") {
+      roleBuilder.run(creep)
     }
   }
 }
