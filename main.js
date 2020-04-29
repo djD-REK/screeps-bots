@@ -28,7 +28,9 @@ module.exports.loop = function () {
     }, */
   // Default: (Harvester, Upgrader, Builder)
   // Old default: Move + work + carry = 200
-  // [WORK, WORK, MOVE, CARRY] = 300
+  // Too slow: [WORK, WORK, MOVE, CARRY] = 300
+  // New default: Move + move + work + carry = 250
+  // Creep [CARRY, WORK, MOVE] will move 1 square per tick if it does not bear energy, and 1 square per 2 ticks if loaded.
   // Slow Defender: (Attack and patrol)
   // [TOUGH, ATTACK, ATTACK, ATTACK, MOVE] = 300
   // Fast Defender: (Attack and patrol)
@@ -65,13 +67,13 @@ module.exports.loop = function () {
     if (harvesters.length < 5) {
       var newName = "Harvester" + Game.time
       console.log("Spawning new harvester: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE, CARRY], newName, {
+      Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "harvester" },
       })
     } else if (upgraders.length < 3) {
       var newName = "Upgrader" + Game.time
       console.log("Spawning new upgrader: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE, CARRY], newName, {
+      Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "upgrader" },
       })
     } else if (
@@ -80,7 +82,7 @@ module.exports.loop = function () {
     ) {
       var newName = "Builder" + Game.time
       console.log("Spawning new builder: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE, CARRY], newName, {
+      Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "builder" },
       })
     } else if (fetchers.length < 1) {
