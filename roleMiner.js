@@ -33,7 +33,7 @@ const assessSources = (thisCreep) => {
 
   // Select all sources with available energy from this room:
   const allSources = thisRoom.find(FIND_SOURCES_ACTIVE)
-  // Make a hash map of {"(x,y)": true} coordinates
+  // Make a hash map of target->objective: {x,y}: {x,y}} coordinates
   const mineablePositions = new Map()
   allSources.forEach((source) => {
     const sourceX = source.pos.x
@@ -51,8 +51,8 @@ const assessSources = (thisCreep) => {
       .filter((position) => position.terrain !== "wall")
       .forEach((mineablePosition) => {
         mineablePositions.set(
-          `(${mineablePosition.x},${mineablePosition.y})`,
-          true
+          { x: mineablePosition.x, y: mineablePosition.y },
+          { x: sourceX, y: sourceY }
         )
       })
   })
@@ -67,42 +67,57 @@ const assessSources = (thisCreep) => {
   miners.forEach((creepName) => {
     mineablePositions.delete(
       `(${Game.creeps[creepName].memory.target.x},${Game.creeps[creepName].memory.target.y})`
-    )    
+    )
   })
   // The hash map mineablePositions now only includes available positions
   if (mineablePositions.size === 0) {
     // No available mining positions
     // --> Mission: Explore
-  }
-  else {
-    // Select a position available at random
-    mineablePositions.keys
+  } else {
+    // Set the mission to MINE
+    thisCreep.memory.mission = "MINE"
+    // Select a position available at random and assign it as the mission target
+    thisCreep.memory.target = [...mineablePositions.keys()][
+      Math.floor(Math.random() * mineablePositions.size)
+    ]
+    // Assign the energy source to the mission objective
+    thisCreep.memory.objective = mineablePositions.get(thisCreep.memory.target)
   }
 }
 
 const roleMiner = {
-  /** @param {Creep} creep **/
-  run: function (creep) {
-    if (creep.store.getFreeCapacity() > 0) {
-      // Go harvest active resources
-      var sources = creep.room.find(FIND_SOURCES_ACTIVE)
-      if (creep.memory.sourceNumber === null) {
-        // Randomize current source assignment
-        creep.memory.sourceNumber = Math.floor(Math.random() * sources.length)
-        creep.say("🔄 harvest")
-        console.log(
-          `${creep.name} assigned to @sources[${creep.memory.sourceNumber}]`
-        )
+  /** @param {Creep} thisCreep **/
+  run: function (thisCreep) {
+    if (thisCreep.memory.mission == undefined) {
+      thisCreep.memory.home == thisCreep.room
+      thisCreep.memory.mission = "THINK"
+    }
+    if (thisCreep.memory.mission === "THINK") {
+      assessSources(thisCreep)
+    }
+    if (thisCreep.memory.mission === "MINE") {
+    }
+    if (thisCreep.memory.mission === "EXPLORE") {
+      if (thisCreep.memory.target == undefined) {
+        const exits = thisCreep.room.find(FIND_EXIT)
+        // Select an exit to move to at random
+        thisCreep.memory.target =
+          exits[Math.floor(exits.length * Math.random())]
       }
       if (
-        creep.harvest(sources[creep.memory.sourceNumber]) == ERR_NOT_IN_RANGE
+        thisCreep.pos.x === 0 ||
+        thisCreep.pos.x === 49 ||
+        thisCreep.pos.y === 0 ||
+        thisCreep.pos.y === 49
       ) {
-        creep.moveTo(sources[creep.memory.sourceNumber], {
-          visualizePathStyle: { stroke: "#ffaa00" },
-        })
+        // At an exit on the 50x50 game board
+        thisCreep.memory.mission = "THINK"
+        // Move off the border by 1 step
+        thisCreep.moveTo(25, 25)
+      } else {
+        // Move toward the assigned exit tile
+        thisCreep.moveTo(thisCreep.memory.target)
       }
-    } else {
-      // Go to other room
     }
   },
 }
