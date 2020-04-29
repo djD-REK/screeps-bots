@@ -1,6 +1,6 @@
 function actionExplore(thisCreep) {
-  thisCreep.say("🚶 exploring")
   if (thisCreep.memory.target == undefined) {
+    thisCreep.say("🚶 EXPLORE")
     const exits = thisCreep.room.find(FIND_EXIT)
     // Select an exit to move to at random
     thisCreep.memory.target = exits[Math.floor(exits.length * Math.random())]
@@ -20,7 +20,7 @@ function actionExplore(thisCreep) {
     thisCreep.moveTo(25, 25)
   } else {
     // Move toward the assigned exit tile
-    thisCreep.moveTo(thisCreep.memory.target)
+    thisCreep.moveTo(thisCreep.memory.target.x, thisCreep.memory.target.y)
   }
 }
 
