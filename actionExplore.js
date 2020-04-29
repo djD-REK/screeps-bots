@@ -1,5 +1,5 @@
 function actionExplore(thisCreep) {
-  creep.say("🚶 exploring")
+  thisCreep.say("🚶 exploring")
   if (thisCreep.memory.target == undefined) {
     const exits = thisCreep.room.find(FIND_EXIT)
     // Select an exit to move to at random
