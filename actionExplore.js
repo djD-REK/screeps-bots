@@ -1,4 +1,4 @@
-function actionExplore(creep) {
+function actionExplore(thisCreep) {
   creep.say("🚶 exploring")
   if (thisCreep.memory.target == undefined) {
     const exits = thisCreep.room.find(FIND_EXIT)
