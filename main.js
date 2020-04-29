@@ -42,10 +42,10 @@ module.exports.loop = function () {
 
   // Spawn new creeps if at least 300 energy (default max to a spawn)
   if (Game.spawns["Spawn1"].energy >= 300) {
-    var miners = _.filter(Game.creeps, (creep) => creep.memory.role == "miners")
+    var miners = _.filter(Game.creeps, (creep) => creep.memory.role == "miner")
     var defenders = _.filter(
       Game.creeps,
-      (creep) => creep.memory.role == "defenders"
+      (creep) => creep.memory.role == "defender"
     )
     console.log(`Miners: ${miners.length}, Defenders: ${defenders.length}`)
 
