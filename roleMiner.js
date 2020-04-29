@@ -4,7 +4,7 @@
 // State Chart
 // Mission: "MINE"
 // Objective: {x,y} (energy source)
-// Target: {x,y} (where to move to mine)
+// Destination: {x,y} (where to move to mine)
 
 // Initial mission: undefined
 // --> Set home to memory
@@ -35,7 +35,7 @@ const assessSources = (thisCreep) => {
 
   // Select all sources with available energy from this room:
   const activeSources = thisRoom.find(FIND_SOURCES_ACTIVE)
-  // Make a hash map of target->objective: {x,y}: {x,y}} coordinates
+  // Make a hash map of destination->objective: {x,y}: {x,y}} coordinates
   const mineablePositions = new Map()
   activeSources.forEach((source) => {
     const sourceX = source.pos.x
@@ -63,13 +63,13 @@ const assessSources = (thisCreep) => {
   const miners = Object.keys(Game.creeps).filter(
     (creepName) =>
       Game.creeps[creepName].memory.role === "miner" &&
-      Game.creeps[creepName].memory.target != undefined &&
+      Game.creeps[creepName].memory.destination != undefined &&
       Game.creeps[creepName].room === thisRoom
   )
   // Remove taken positions from the hash map of {"(x,y)": true} coordinates
   miners.forEach((creepName) => {
     mineablePositions.delete(
-      `(${Game.creeps[creepName].memory.target.x},${Game.creeps[creepName].memory.target.y})`
+      `(${Game.creeps[creepName].memory.destination.x},${Game.creeps[creepName].memory.destination.y})`
     )
   })
   // The hash map mineablePositions now only includes available positions
@@ -83,15 +83,17 @@ const assessSources = (thisCreep) => {
     // --> Mission: MINE
     thisCreep.memory.mission = "MINE"
     thisCreep.say("🔄 MINE")
-    // Select a position available at random and assign it as the mission target
-    thisCreep.memory.target = [...mineablePositions.keys()][
+    // Select a position available at random and assign it as the mission destination
+    thisCreep.memory.destination = [...mineablePositions.keys()][
       Math.floor(Math.random() * mineablePositions.size)
     ]
     // Assign the energy source to the mission objective
-    thisCreep.memory.objective = mineablePositions.get(thisCreep.memory.target)
+    thisCreep.memory.objective = mineablePositions.get(
+      thisCreep.memory.destination
+    )
     console.log(
       `${thisCreep.name} assigned mission to MINE Objective (${thisCreep.memory.objective.x},` +
-        `${thisCreep.memory.objective.y}) from Target (${thisCreep.memory.target.x},${thisCreep.memory.target.y})`
+        `${thisCreep.memory.objective.y}) from destination (${thisCreep.memory.destination.x},${thisCreep.memory.destination.y})`
     )
   }
 }
@@ -114,9 +116,13 @@ const roleMiner = {
       )
       const sourceAtObjective = pos.findClosestByRange(FIND_SOURCES_ACTIVE)
       if (thisCreep.harvest(sourceAtObjective) === ERR_NOT_IN_RANGE) {
-        thisCreep.moveTo(thisCreep.memory.target.x, thisCreep.memory.target.y, {
-          visualizePathStyle: { stroke: "#ffaa00" },
-        })
+        thisCreep.moveTo(
+          thisCreep.memory.destination.x,
+          thisCreep.memory.destination.y,
+          {
+            visualizePathStyle: { stroke: "#ffaa00" },
+          }
+        )
       }
     }
     if (thisCreep.memory.mission === "EXPLORE") {
