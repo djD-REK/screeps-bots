@@ -1,16 +1,16 @@
-var actionPatrol = require("actionPatrol")
+var actionExplore = require("actionExplore")
 
 var roleDefender = {
-  /** @param {Creep} creep **/
-  run: function (creep) {
-    const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
+  /** @param {Creep} thisCreep **/
+  run: function (thisCreep) {
+    const target = thisCreep.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
     if (target) {
-      creep.say("⚔️ attacking")
-      if (creep.attack(target) == ERR_NOT_IN_RANGE) {
-        creep.moveTo(target)
+      thisCreep.say("⚔️ attacking")
+      if (thisCreep.attack(target) == ERR_NOT_IN_RANGE) {
+        thisCreep.moveTo(target)
       }
     } else {
-      actionPatrol(creep)
+      actionExplore(thisCreep)
     }
   },
 }

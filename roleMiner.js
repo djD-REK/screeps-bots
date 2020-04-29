@@ -18,6 +18,8 @@
 // --> If no available sources, go to another room
 // ----> Mission: EXPLORE ---> Mission THINK on entering new room
 
+require("actionExplore")
+
 const assessSources = (thisCreep) => {
   const thisRoom = thisCreep.room
 
@@ -32,10 +34,10 @@ const assessSources = (thisCreep) => {
   // )
 
   // Select all sources with available energy from this room:
-  const allSources = thisRoom.find(FIND_SOURCES_ACTIVE)
+  const activeSources = thisRoom.find(FIND_SOURCES_ACTIVE)
   // Make a hash map of target->objective: {x,y}: {x,y}} coordinates
   const mineablePositions = new Map()
-  allSources.forEach((source) => {
+  activeSources.forEach((source) => {
     const sourceX = source.pos.x
     const sourceY = source.pos.y
     // lookForAtArea(type, top, left, bottom, right, [asArray])
@@ -96,28 +98,10 @@ const roleMiner = {
       assessSources(thisCreep)
     }
     if (thisCreep.memory.mission === "MINE") {
+      
     }
     if (thisCreep.memory.mission === "EXPLORE") {
-      if (thisCreep.memory.target == undefined) {
-        const exits = thisCreep.room.find(FIND_EXIT)
-        // Select an exit to move to at random
-        thisCreep.memory.target =
-          exits[Math.floor(exits.length * Math.random())]
-      }
-      if (
-        thisCreep.pos.x === 0 ||
-        thisCreep.pos.x === 49 ||
-        thisCreep.pos.y === 0 ||
-        thisCreep.pos.y === 49
-      ) {
-        // At an exit on the 50x50 game board
-        thisCreep.memory.mission = "THINK"
-        // Move off the border by 1 step
-        thisCreep.moveTo(25, 25)
-      } else {
-        // Move toward the assigned exit tile
-        thisCreep.moveTo(thisCreep.memory.target)
-      }
+      actionExplore(thisCreep)
     }
   },
 }

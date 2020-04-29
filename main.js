@@ -7,16 +7,7 @@ var roleFetcher = require("roleFetcher")
 const upperFirstCharacter = (string) =>
   string.slice(0, 1).toUpperCase() + string.slice(1)
 // const unitTypesAndCounts = {harvesters: 6, "upgraders", "builders", "defenders", "fetchers"]
-
-module.exports.loop = function () {
-  for (var name in Memory.creeps) {
-    if (!Game.creeps[name]) {
-      delete Memory.creeps[name]
-      console.log("Clearing non-existing creep memory:", name)
-    }
-  }
-
-  /*  BODYPART_COST: {
+/*  BODYPART_COST: {
         "move": 50,
         "work": 100,
         "attack": 80,
@@ -26,92 +17,50 @@ module.exports.loop = function () {
         "tough": 10,
         "claim": 600
     }, */
-  // Default: (Harvester, Upgrader, Builder)
-  // Old default: Move + work + carry = 200
-  // Too slow: [WORK, WORK, MOVE, CARRY] = 300
-  // New default: Move + move + work + carry = 250
-  // Creep [CARRY, WORK, MOVE] will move 1 square per tick if it does not bear energy, and 1 square per 2 ticks if loaded.
-  // Slow Defender: (Attack and patrol)
-  // [TOUGH, ATTACK, ATTACK, ATTACK, MOVE] = 300
-  // Fast Defender: (Attack and patrol)
-  // [MOVE, MOVE, ATTACK, ATTACK, TOUGH, TOUGH, TOUGH, TOUGH] = 300
-  // Fetcher: (Dropped resources and patrol)
-  // [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY]
+// Default: (Harvester, Upgrader, Builder)
+// Old default: Move + work + carry = 200
+// Too slow: [WORK, WORK, MOVE, CARRY] = 300
+// New default: Move + move + work + carry = 250
+// Creep [CARRY, WORK, MOVE] will move 1 square per tick if it does not bear energy, and 1 square per 2 ticks if loaded.
+// Fetcher: (Dropped resources and patrol)
+// [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY]
+
+// Defender: (Attack and patrol)
+// [MOVE, MOVE, ATTACK, ATTACK] = 260
+// Miner:
+// [WORK, WORK, MOVE, MOVE] = 300
+
+module.exports.loop = function () {
+  // Housekeeping: Delete dead creeps from memory
+  for (var name in Memory.creeps) {
+    if (!Game.creeps[name]) {
+      delete Memory.creeps[name]
+      console.log("Clearing non-existing creep memory:", name)
+    }
+  }
+
+  // Spawn new creeps if at least 300 energy (default max to a spawn)
   if (Game.spawns["Spawn1"].energy >= 300) {
-    var harvesters = _.filter(
-      Game.creeps,
-      (creep) => creep.memory.role == "harvester"
-    )
-    console.log("Harvesters: " + harvesters.length)
-    var upgraders = _.filter(
-      Game.creeps,
-      (creep) => creep.memory.role == "upgrader"
-    )
-    console.log("Upgraders: " + upgraders.length)
-    var builders = _.filter(
-      Game.creeps,
-      (creep) => creep.memory.role == "builder"
-    )
-    console.log("Builders: " + builders.length)
+    var miners = _.filter(Game.creeps, (creep) => creep.memory.role == "miners")
     var defenders = _.filter(
       Game.creeps,
-      (creep) => creep.memory.role == "defender"
+      (creep) => creep.memory.role == "defenders"
     )
-    console.log("Defenders: " + defenders.length)
-    var fetchers = _.filter(
-      Game.creeps,
-      (creep) => creep.memory.role == "fetcher"
-    )
-    console.log("Fetchers: " + fetchers.length)
+    console.log(`Miners: ${miners.length}, Defenders: ${defenders.length}`)
 
-    if (harvesters.length < 5) {
-      var newName = "Harvester" + Game.time
-      console.log("Spawning new harvester: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
-        memory: { role: "harvester" },
+    if (miners.length < 10) {
+      const newName = "Miner" + miners.length
+      console.log("Spawning new miner: " + newName)
+      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE, MOVE], newName, {
+        memory: { role: "miner" },
       })
-    } else if (upgraders.length < 3) {
-      var newName = "Upgrader" + Game.time
-      console.log("Spawning new upgrader: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
-        memory: { role: "upgrader" },
-      })
-    } else if (
-      builders.length < 5 &&
-      Game.spawns["Spawn1"].room.find(FIND_MY_CONSTRUCTION_SITES).length > 0
-    ) {
-      var newName = "Builder" + Game.time
-      console.log("Spawning new builder: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
-        memory: { role: "builder" },
-      })
-    } else if (fetchers.length < 1) {
-      var newName = "Fetcher" + Game.time
-      console.log("Spawning new fetcher: " + newName)
-      Game.spawns["Spawn1"].spawnCreep(
-        [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY],
-        newName,
-        { memory: { role: "fetcher" } }
-      )
     } else {
       //else if(defenders.length < 4) {
-      var newName = "Defender" + Game.time
+      var newName = "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
-      if (Math.random() < 0.5) {
-        // Slow defender
-        Game.spawns["Spawn1"].spawnCreep(
-          [TOUGH, ATTACK, ATTACK, ATTACK, MOVE],
-          newName,
-          { memory: { role: "defender" } }
-        )
-      } else {
-        // Fast defender
-        Game.spawns["Spawn1"].spawnCreep(
-          [MOVE, MOVE, ATTACK, ATTACK, TOUGH, TOUGH, TOUGH, TOUGH],
-          newName,
-          { memory: { role: "defender" } }
-        )
-      }
+      Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, {
+        memory: { role: "defender" },
+      })
     }
   }
 
