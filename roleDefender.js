@@ -1,4 +1,4 @@
-var actionPatrol = require("action.patrol")
+var actionPatrol = require("actionPatrol")
 
 var roleDefender = {
   /** @param {Creep} creep **/

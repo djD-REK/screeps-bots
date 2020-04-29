@@ -1,5 +1,5 @@
-var actionDeposit = require("action.deposit")
-var actionPatrol = require("action.patrol")
+var actionDeposit = require("actionDeposit")
+var actionPatrol = require("actionPatrol")
 
 var roleFetcher = {
   /** @param {Creep} creep **/

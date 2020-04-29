@@ -1,4 +1,4 @@
-var actionHarvest = require("action.harvest")
+var actionHarvest = require("actionHarvest")
 
 var roleBuilder = {
   /** @param {Creep} creep **/

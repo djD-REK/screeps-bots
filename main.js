@@ -1,8 +1,8 @@
-var roleHarvester = require("role.harvester")
-var roleUpgrader = require("role.upgrader")
-var roleBuilder = require("role.builder")
-var roleDefender = require("role.defender")
-var roleFetcher = require("role.fetcher")
+var roleHarvester = require("roleHarvester")
+var roleUpgrader = require("roleUpgrader")
+var roleBuilder = require("roleBuilder")
+var roleDefender = require("roleDefender")
+var roleFetcher = require("roleFetcher")
 
 const upperFirstCharacter = (string) =>
   string.slice(0, 1).toUpperCase() + string.slice(1)

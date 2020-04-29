@@ -1,4 +1,4 @@
-var actionDeposit = require("action.deposit")
+var actionDeposit = require("actionDeposit")
 
 function actionHarvest(creep) {
   if (creep.store.getFreeCapacity() > 0) {
