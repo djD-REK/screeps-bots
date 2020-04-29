@@ -4,6 +4,9 @@ function actionExplore(creep) {
     const exits = thisCreep.room.find(FIND_EXIT)
     // Select an exit to move to at random
     thisCreep.memory.target = exits[Math.floor(exits.length * Math.random())]
+    console.log(
+      `${thisCreep.name} assigned mission to EXPLORE to Target (${thisCreep.memory.target.x},${thisCreep.memory.target.y})`
+    )
   }
   if (
     thisCreep.pos.x === 0 ||

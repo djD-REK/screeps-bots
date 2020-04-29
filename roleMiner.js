@@ -30,7 +30,7 @@ const assessSources = (thisCreep) => {
   // Equivalent using lodash filter:
   // const upgraders = _.filter(
   //  Game.creeps,
-  //  (creep) => creep.memory.role === "miner"
+  //  (creep) => thisCreep.memory.role === "miner"
   // )
 
   // Select all sources with available energy from this room:
@@ -74,16 +74,24 @@ const assessSources = (thisCreep) => {
   // The hash map mineablePositions now only includes available positions
   if (mineablePositions.size === 0) {
     // No available mining positions
-    // --> Mission: Explore
+    // --> Mission: EXPLORE
+    thisCreep.memory.mission = "EXPLORE"
+    thisCreep.say("🔄 EXPLORE")
   } else {
-    // Set the mission to MINE
+    // Found at least 1 available mining position
+    // --> Mission: MINE
     thisCreep.memory.mission = "MINE"
+    thisCreep.say("🔄 MINE")
     // Select a position available at random and assign it as the mission target
     thisCreep.memory.target = [...mineablePositions.keys()][
       Math.floor(Math.random() * mineablePositions.size)
     ]
     // Assign the energy source to the mission objective
     thisCreep.memory.objective = mineablePositions.get(thisCreep.memory.target)
+    console.log(
+      `${thisCreep.name} assigned mission to MINE Objective (${thisCreep.memory.objective.x},` +
+        `${thisCreep.memory.objective.y}) from Target (${thisCreep.memory.target.x},${thisCreep.memory.target.y})`
+    )
   }
 }
 
@@ -95,10 +103,20 @@ const roleMiner = {
       thisCreep.memory.mission = "THINK"
     }
     if (thisCreep.memory.mission === "THINK") {
+      thisCreep.say("🔄 MINE")
       assessSources(thisCreep)
     }
     if (thisCreep.memory.mission === "MINE") {
-      
+      if (
+        thisCreep.harvest(
+          thisCreep.memory.objective.x,
+          thisCreep.memory.objective.y
+        ) === ERR_NOT_IN_RANGE
+      ) {
+        thisCreep.moveTo(thisCreep.memory.target.x, thisCreep.memory.target.y, {
+          visualizePathStyle: { stroke: "#ffaa00" },
+        })
+      }
     }
     if (thisCreep.memory.mission === "EXPLORE") {
       actionExplore(thisCreep)

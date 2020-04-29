@@ -1,8 +1,5 @@
-var roleHarvester = require("roleHarvester")
-var roleUpgrader = require("roleUpgrader")
-var roleBuilder = require("roleBuilder")
 var roleDefender = require("roleDefender")
-var roleFetcher = require("roleFetcher")
+var roleMiner = require("roleMiner")
 
 const upperFirstCharacter = (string) =>
   string.slice(0, 1).toUpperCase() + string.slice(1)
@@ -51,19 +48,22 @@ module.exports.loop = function () {
     if (miners.length < 10) {
       const newName = "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE, MOVE], newName, {
+      // [WORK, WORK, MOVE, MOVE]
+      Game.spawns["Spawn1"].spawnCreep([WORK, MOVE], newName, {
         memory: { role: "miner" },
       })
     } else {
+      // [ATTACK, ATTACK, MOVE, MOVE]
       //else if(defenders.length < 4) {
       var newName = "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, {
+      Game.spawns["Spawn1"].spawnCreep([ATTACK, MOVE], newName, {
         memory: { role: "defender" },
       })
     }
   }
 
+  // Visual display if spawn is spawning
   if (Game.spawns["Spawn1"].spawning) {
     var spawningCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name]
     Game.spawns["Spawn1"].room.visual.text(
@@ -74,6 +74,7 @@ module.exports.loop = function () {
     )
   }
 
+  // Make towers attack & repair
   var tower = Game.getObjectById("19c84d7e085f8e787fde0c5b")
   if (tower) {
     var closestDamagedStructure = tower.pos.findClosestByRange(
@@ -92,22 +93,14 @@ module.exports.loop = function () {
     }
   }
 
+  // Run all creeps
   for (var name in Game.creeps) {
     var creep = Game.creeps[name]
-    if (creep.memory.role == "harvester") {
-      roleHarvester.run(creep)
-    }
-    if (creep.memory.role == "upgrader") {
-      roleUpgrader.run(creep)
-    }
-    if (creep.memory.role == "builder") {
-      roleBuilder.run(creep)
-    }
     if (creep.memory.role == "defender") {
       roleDefender.run(creep)
     }
-    if (creep.memory.role == "fetcher") {
-      roleFetcher.run(creep)
+    if (creep.memory.role == "miner") {
+      roleMiner.run(creep)
     }
   }
 }
