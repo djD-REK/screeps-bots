@@ -108,12 +108,12 @@ const roleMiner = {
       assessSources(thisCreep)
     }
     if (thisCreep.memory.mission === "MINE") {
-      if (
-        thisCreep.harvest(
-          thisCreep.memory.objective.x,
-          thisCreep.memory.objective.y
-        ) === ERR_NOT_IN_RANGE
-      ) {
+      const pos = thisCreep.room.getPositionAt(
+        thisCreep.memory.objective.x,
+        thisCreep.memory.objective.y
+      )
+      const sourceAtObjective = pos.findClosestByRange(FIND_SOURCES_ACTIVE)
+      if (thisCreep.harvest(sourceAtObjective) === ERR_NOT_IN_RANGE) {
         thisCreep.moveTo(thisCreep.memory.target.x, thisCreep.memory.target.y, {
           visualizePathStyle: { stroke: "#ffaa00" },
         })
