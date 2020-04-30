@@ -65,7 +65,7 @@ module.exports.loop = function () {
   // [MOVE, WORK, WORK] = 250
 
   // Spawn new creeps if at least 300 energy (default max to a spawn)
-  if (Game.spawns["Spawn1"].energy >= 300) {
+  if (Game.spawns["Spawn1"].room.energyAvailable >= 300) {
     const harvesters = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "harvester"
@@ -97,7 +97,7 @@ module.exports.loop = function () {
     )
     console.log("Miners: " + miners.length)
 
-    if (harvesters.length < 2) {
+    if (harvesters.length < 0) {
       const newName = "Harvester" + harvesters.length
       console.log("Spawning new harvester: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
@@ -110,7 +110,7 @@ module.exports.loop = function () {
         memory: { role: "upgrader" },
       })
     } else if (
-      builders.length < 2 &&
+      builders.length < 1 &&
       Game.spawns["Spawn1"].room.find(FIND_MY_CONSTRUCTION_SITES).length > 0
     ) {
       const newName = "Builder" + builders.length
@@ -126,7 +126,7 @@ module.exports.loop = function () {
         newName,
         { memory: { role: "fetcher" } }
       )
-    } else if (miners.length < 3) {
+    } else if (miners.length < 5) {
       const newName = "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, {
