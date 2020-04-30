@@ -4,7 +4,7 @@ function actionHarvest(creep) {
   if (creep.store.getFreeCapacity() > 0) {
     // Go harvest active resources
     var sources = creep.room.find(FIND_SOURCES_ACTIVE)
-    if (creep.memory.sourceNumber === null) {
+    if (creep.memory.sourceNumber == null) {
       // Randomize current source assignment
       creep.memory.sourceNumber = Math.floor(Math.random() * sources.length)
       creep.say("🔄 harvest")

@@ -9,7 +9,7 @@ var roleFetcher = {
     if (targets.length && creep.store.getFreeCapacity() > 0) {
       // Pick up dropped resources
       creep.say("🔄 dropped resources")
-      console.log(`dropped resources at ${targets[0]}`)
+      // console.log(`dropped resources at ${targets[0]}`)
       creep.moveTo(targets[0], { visualizePathStyle: { stroke: "#ffaa00" } })
       creep.pickup(targets[0])
     } else {
