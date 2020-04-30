@@ -51,9 +51,9 @@ const assessSources = (thisCreep) => {
           mineablePositionAsJSON.x,
           mineablePositionAsJSON.y
         ) // Retrieve a RoomPosition object from the x,y coordinates
-        const mineablePositionString = String(mineablePosition.pos)
+        const mineablePositionString = String(mineablePosition)
         // Remove occupied positions from the hash map
-        if (mineablePosition.pos.lookFor(LOOK_CREEPS).length === 0) {
+        if (mineablePosition.lookFor(LOOK_CREEPS).length === 0) {
           mineablePositions.set(mineablePositionString, sourcePositionString)
         }
       })
