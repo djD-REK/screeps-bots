@@ -1,9 +1,9 @@
-var roleDefender = require("roleDefender")
-var roleMiner = require("roleMiner")
-var roleBuilder = require("roleBuilder")
-var roleFetcher = require("roleFetcher")
-var roleHarvester = require("roleHarvester")
-var roleUpgrader = require("roleUpgrader")
+const roleDefender = require("roleDefender")
+const roleMiner = require("roleMiner")
+const roleBuilder = require("roleBuilder")
+const roleFetcher = require("roleFetcher")
+const roleHarvester = require("roleHarvester")
+const roleUpgrader = require("roleUpgrader")
 
 const upperFirstCharacter = (string) =>
   string.slice(0, 1).toUpperCase() + string.slice(1)
@@ -33,7 +33,7 @@ const upperFirstCharacter = (string) =>
 
 module.exports.loop = function () {
   // Housekeeping: Delete dead creeps from memory
-  for (var name in Memory.creeps) {
+  for (const name in Memory.creeps) {
     if (!Game.creeps[name]) {
       delete Memory.creeps[name]
       console.log("Clearing non-existing creep memory:", name)
@@ -64,42 +64,45 @@ module.exports.loop = function () {
 
   // Spawn new creeps if at least 300 energy (default max to a spawn)
   if (Game.spawns["Spawn1"].energy >= 300) {
-    var harvesters = _.filter(
+    const harvesters = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "harvester"
     )
     console.log("Harvesters: " + harvesters.length)
-    var upgraders = _.filter(
+    const upgraders = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "upgrader"
     )
     console.log("Upgraders: " + upgraders.length)
-    var builders = _.filter(
+    const builders = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "builder"
     )
     console.log("Builders: " + builders.length)
-    var defenders = _.filter(
+    const defenders = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "defender"
     )
     console.log("Defenders: " + defenders.length)
-    var fetchers = _.filter(
+    const fetchers = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "fetcher"
     )
     console.log("Fetchers: " + fetchers.length)
-    var miners = _.filter(Game.creeps, (creep) => creep.memory.role == "miner")
-    console.log("Drop Miners: " + miners.length)
+    const miners = _.filter(
+      Game.creeps,
+      (creep) => creep.memory.role == "miner"
+    )
+    console.log("Miners: " + miners.length)
 
     if (harvesters.length < 5) {
-      var newName = "Harvester" + Game.time
+      const newName = "Harvester" + harvesters.length
       console.log("Spawning new harvester: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "harvester" },
       })
     } else if (upgraders.length < 3) {
-      var newName = "Upgrader" + Game.time
+      const newName = "Upgrader" + upgraders.length
       console.log("Spawning new upgrader: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "upgrader" },
@@ -108,13 +111,13 @@ module.exports.loop = function () {
       builders.length < 5 &&
       Game.spawns["Spawn1"].room.find(FIND_MY_CONSTRUCTION_SITES).length > 0
     ) {
-      var newName = "Builder" + Game.time
+      const newName = "Builder" + builders.length
       console.log("Spawning new builder: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "builder" },
       })
     } else if (fetchers.length < 1) {
-      var newName = "Fetcher" + Game.time
+      const newName = "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
       Game.spawns["Spawn1"].spawnCreep(
         [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY],
@@ -122,13 +125,13 @@ module.exports.loop = function () {
         { memory: { role: "fetcher" } }
       )
     } else if (defenders.length < 4) {
-      var newName = "Defender" + Game.time
+      const newName = "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
       Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, {
         memory: { role: "defender" },
       })
     } else {
-      var newName = "Miner" + Game.time
+      const newName = "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE, MOVE], newName, {
         memory: { role: "miner" },
@@ -138,7 +141,7 @@ module.exports.loop = function () {
 
   // Visual display if spawn is spawning
   if (Game.spawns["Spawn1"].spawning) {
-    var spawningCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name]
+    const spawningCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name]
     Game.spawns["Spawn1"].room.visual.text(
       "🛠️" + spawningCreep.memory.role,
       Game.spawns["Spawn1"].pos.x + 1,
@@ -148,9 +151,9 @@ module.exports.loop = function () {
   }
 
   // Make towers attack & repair
-  var tower = Game.getObjectById("19c84d7e085f8e787fde0c5b")
+  const tower = Game.getObjectById("19c84d7e085f8e787fde0c5b")
   if (tower) {
-    var closestDamagedStructure = tower.pos.findClosestByRange(
+    const closestDamagedStructure = tower.pos.findClosestByRange(
       FIND_STRUCTURES,
       {
         filter: (structure) => structure.hits < structure.hitsMax,
@@ -160,15 +163,15 @@ module.exports.loop = function () {
       tower.repair(closestDamagedStructure)
     }
 
-    var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
+    const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
     if (closestHostile) {
       tower.attack(closestHostile)
     }
   }
 
   // Run all creeps
-  for (var name in Game.creeps) {
-    var creep = Game.creeps[name]
+  for (const name in Game.creeps) {
+    const creep = Game.creeps[name]
     if (creep.memory.role == "defender") {
       roleDefender.run(creep)
     }
