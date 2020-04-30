@@ -13,12 +13,27 @@ var roleBuilder = {
     }
 
     if (creep.memory.building) {
-      var targets = creep.room.find(FIND_MY_CONSTRUCTION_SITES)
-      if (targets.length) {
-        if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(targets[0], {
+      var buildSites = creep.room.find(FIND_MY_CONSTRUCTION_SITES)
+      if (buildSites.length) {
+        if (creep.memory.buildSiteNumber == null) {
+          creep.memory.buildSiteNumber = Math.floor(
+            Math.random() * buildSites.length
+          )
+          console.log(
+            `${creep.name} assigned to @buildSites[${creep.memory.buildSiteNumber}]`
+          )
+        }
+        if (
+          creep.build(buildSites[creep.memory.buildSiteNumber]) ==
+          ERR_NOT_IN_RANGE
+        ) {
+          creep.moveTo(buildSites[creep.memory.buildSiteNumber], {
             visualizePathStyle: { stroke: "#ffffff" },
           })
+        }
+        if (creep.build(buildSites[creep.memory.buildSiteNumber]) != OK) {
+          // There was an error
+          creep.memory.buildSiteNumber = null
         }
       }
     } else {
