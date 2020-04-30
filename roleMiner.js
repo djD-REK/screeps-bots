@@ -93,7 +93,7 @@ const assessSources = (thisCreep) => {
     )
     console.log(
       `${thisCreep.name} assigned mission to MINE Objective (${thisCreep.memory.objective.x},` +
-        `${thisCreep.memory.objective.y}) from destination (${thisCreep.memory.destination.x},${thisCreep.memory.destination.y})`
+        `${thisCreep.memory.objective.y}) from Destination (${thisCreep.memory.destination.x},${thisCreep.memory.destination.y})`
     )
   }
 }
