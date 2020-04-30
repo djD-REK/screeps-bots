@@ -30,11 +30,14 @@ var roleBuilder = {
           creep.moveTo(buildSites[creep.memory.buildSiteNumber], {
             visualizePathStyle: { stroke: "#ffffff" },
           })
-        }
-        if (creep.build(buildSites[creep.memory.buildSiteNumber]) != OK) {
-          // There was an error
+        } else if (
+          creep.build(buildSites[creep.memory.buildSiteNumber]) != OK
+        ) {
+          // There was a different error
           console.log(
-            `error ${creep.build(buildSites[creep.memory.buildSiteNumber])}`
+            `${creep.name} error ${creep.build(
+              buildSites[creep.memory.buildSiteNumber]
+            )}`
           )
           creep.memory.buildSiteNumber = null
         }
