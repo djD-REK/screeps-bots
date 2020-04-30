@@ -41,4 +41,4 @@ const actionFillUp = function (thisCreep) {
   }
 }
 
-export default actionFillUp
+module.exports = actionFillUp
