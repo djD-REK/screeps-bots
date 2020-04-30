@@ -45,6 +45,7 @@ const assessSources = (thisCreep) => {
       .filter((position) => position.terrain !== "wall")
       .forEach((mineablePosition) => {
         const mineablePositionString = String(mineablePosition.pos)
+        console.log(mineablePositionString)
         // Remove occupied positions from the hash map
         console.log(mineablePositionString)
         if (mineablePosition.pos.lookFor(LOOK_CREEPS).length === 0) {
