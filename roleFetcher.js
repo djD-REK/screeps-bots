@@ -7,9 +7,9 @@ var roleFetcher = {
     // Top priority: Dropped resources
     const droppedResources = creep.room.find(FIND_DROPPED_RESOURCES)
     if (droppedResources.length && creep.store.getFreeCapacity() > 0) {
-      if (creep.memory.droppedRedroppedResourceNumber == null) {
+      if (creep.memory.droppedResourceNumber == null) {
         // Randomize current droppedResource assignment
-        creep.memory.droppedRedroppedResourceNumber = Math.floor(
+        creep.memory.droppedResourceNumber = Math.floor(
           Math.random() * droppedResources.length
         )
         creep.say("🔄 FILL UP")
@@ -34,6 +34,7 @@ var roleFetcher = {
         creep.pickup(droppedResources[creep.memory.droppedResourceNumber])
       }
     } else {
+      creep.memory.droppedResourceNumber = null
       if (creep.store.getUsedCapacity() > 0) {
         // Drop off resources
         actionDeposit(creep)
