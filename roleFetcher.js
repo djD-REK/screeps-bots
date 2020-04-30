@@ -18,20 +18,12 @@ var roleFetcher = {
         )
       }
       if (
-        creep.harvest(droppedResources[creep.memory.droppedResourceNumber]) ==
+        creep.pickup(droppedResources[creep.memory.droppedResourceNumber]) ==
         ERR_NOT_IN_RANGE
       ) {
         creep.moveTo(droppedResources[creep.memory.droppedResourceNumber], {
           visualizePathStyle: { stroke: "#ffaa00" },
         })
-      }
-      if (
-        creep.harvest(droppedResources[creep.memory.droppedResourceNumber]) ===
-        OK
-      ) {
-        // Log destination while harvesting
-        creep.memory.destination = { x: creep.pos.x, y: creep.pos.y }
-        creep.pickup(droppedResources[creep.memory.droppedResourceNumber])
       }
     } else {
       creep.memory.droppedResourceNumber = null
