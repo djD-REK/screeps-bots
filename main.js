@@ -31,13 +31,6 @@ const upperFirstCharacter = (string) =>
 // Miner:
 // [WORK, WORK, MOVE, MOVE] = 300
 
-var roleHarvester = require("roleHarvester")
-var roleUpgrader = require("roleUpgrader")
-var roleBuilder = require("roleBuilder")
-var roleDefender = require("roleDefender")
-var roleFetcher = require("roleFetcher")
-var roleMiner = require("roleMiner")
-
 module.exports.loop = function () {
   // Housekeeping: Delete dead creeps from memory
   for (var name in Memory.creeps) {
