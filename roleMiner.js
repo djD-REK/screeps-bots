@@ -110,7 +110,9 @@ const roleMiner = {
       assessSources(thisCreep)
     }
     if (thisCreep.memory.mission === "MINE") {
-      thisCreep.say("🔄 MINE")
+      if (Math.random() < 0.01) {
+        thisCreep.say("🔄 MINE")
+      }
       if (thisCreep.memory.objective == undefined) {
         thisCreep.memory.mission = "THINK"
       } else {
