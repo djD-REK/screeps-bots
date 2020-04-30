@@ -37,7 +37,7 @@ const actionFillUp = function (thisCreep) {
     ) {
       // There was a different error
       console.log(
-        `${thisCreep.name} error ${thisCreep.withdraw(
+        `${thisCreep.name} withdraw error ${thisCreep.withdraw(
           storageSites[thisCreep.memory.storageSiteNumber],
           RESOURCE_ENERGY
         )}`

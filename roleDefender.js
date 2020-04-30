@@ -11,8 +11,8 @@ var roleDefender = {
         thisCreep.moveTo(target)
       }
     } else {
-      //      actionExplore(thisCreep)
-      actionPatrol(thisCreep)
+      actionExplore(thisCreep)
+      // actionPatrol(thisCreep)
     }
   },
 }
