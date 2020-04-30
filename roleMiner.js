@@ -46,6 +46,7 @@ const assessSources = (thisCreep) => {
       .forEach((mineablePosition) => {
         const mineablePositionString = String(mineablePosition.pos)
         // Remove occupied positions from the hash map
+        console.log(mineablePositionsString)
         if (mineablePosition.pos.lookFor(LOOK_CREEPS).length === 0) {
           mineablePositions.set(mineablePositionString, sourcePositionString)
         }
