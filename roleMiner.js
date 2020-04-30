@@ -42,8 +42,14 @@ const assessSources = (thisCreep) => {
       true
     )
     lookArray
-      .filter((position) => position.terrain !== "wall")
-      .forEach((mineablePosition) => {
+      .filter((positionAsJSON) => positionAsJSON.terrain !== "wall")
+      .forEach((mineablePositionAsJSON) => {
+        // Each item returned by lookForAtArea looks like:
+        // {"type":"terrain","terrain":"plain","x":24,"y":42}
+        const mineablePosition = Game.rooms[thisRoom].getPositionAt(
+          mineablePositionAsJSON.x,
+          mineablePositionAsJSON.y
+        ) // Retrieve a RoomPosition object from the x,y coordinates
         const mineablePositionString = String(mineablePosition.pos)
         console.log(mineablePositionString)
         // Remove occupied positions from the hash map
