@@ -60,7 +60,9 @@ module.exports.loop = function () {
   // Fast Defender: (Attack and patrol)
   // [MOVE, MOVE, ATTACK, ATTACK, TOUGH, TOUGH, TOUGH, TOUGH] = 300
   // Fetcher: (Dropped resources / Tanker)
-  // [MOVE, MOVE, CARRY, CARRY]
+  // [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY] = 300
+  // Miner: (Static drop miner)
+  // [MOVE, WORK, WORK] = 250
 
   // Spawn new creeps if at least 300 energy (default max to a spawn)
   if (Game.spawns["Spawn1"].energy >= 300) {
@@ -120,14 +122,14 @@ module.exports.loop = function () {
       const newName = "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
       Game.spawns["Spawn1"].spawnCreep(
-        [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY],
+        [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY],
         newName,
         { memory: { role: "fetcher" } }
       )
     } else if (miners.length < 2) {
       const newName = "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE, MOVE], newName, {
+      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, {
         memory: { role: "miner" },
       })
     } else {
