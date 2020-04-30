@@ -13,7 +13,7 @@ var roleFetcher = {
       creep.moveTo(targets[0], { visualizePathStyle: { stroke: "#ffaa00" } })
       creep.pickup(targets[0])
     } else {
-      if (creep.store.getUsedCapacity > 0) {
+      if (creep.store.getUsedCapacity() > 0) {
         // Drop off resources
         actionDeposit(creep)
       } else {
