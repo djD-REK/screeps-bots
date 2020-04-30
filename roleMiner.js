@@ -68,10 +68,12 @@ const assessSources = (thisCreep) => {
   )
   // Remove taken positions from the hash map of {"(x,y)": true} coordinates
   miners.forEach((creepName) => {
-    mineablePositions.delete({
+    const takenPosition = {
       x: Game.creeps[creepName].memory.destination.x,
       y: Game.creeps[creepName].memory.destination.y,
-    })
+    }
+    mineablePositions.delete(takenPosition)
+    console.log("Taken position: " + JSON.stringify(takenPosition))
   })
   // The hash map mineablePositions now only includes available positions
   if (mineablePositions.size === 0) {
