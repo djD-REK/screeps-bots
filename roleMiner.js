@@ -18,7 +18,7 @@
 // --> If no available sources, go to another room
 // ----> Mission: EXPLORE ---> Mission THINK on entering new room
 
-require("actionExplore")
+const actionExplore = require("actionExplore")
 
 const assessSources = (thisCreep) => {
   const thisRoom = thisCreep.room
@@ -91,7 +91,7 @@ const assessSources = (thisCreep) => {
       thisCreep.memory.destination
     )
     console.log(
-      `${thisCreep.name} assigned mission to MINE Objective (${thisCreep.memory.objective}) from Destination (${thisCreep.memory.destination})`
+      `${thisCreep.name} assigned mission to MINE Objective ${thisCreep.memory.objective} from Destination ${thisCreep.memory.destination}`
     )
   }
 }
