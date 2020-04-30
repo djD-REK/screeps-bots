@@ -33,6 +33,9 @@ var roleBuilder = {
         }
         if (creep.build(buildSites[creep.memory.buildSiteNumber]) != OK) {
           // There was an error
+          console.log(
+            `error ${creep.build(buildSites[creep.memory.buildSiteNumber])}`
+          )
           creep.memory.buildSiteNumber = null
         }
       }
