@@ -25,6 +25,13 @@ var roleFetcher = {
           visualizePathStyle: { stroke: "#ffaa00" },
         })
       }
+      if (
+        creep.pickup(droppedResources[creep.memory.droppedResourceNumber]) ==
+        ERR_INVALID_TARGET
+      ) {
+        // Maybe we already picked it up, or someone else did
+        creep.memory.droppedResourceNumber = null
+      }
     } else {
       creep.memory.droppedResourceNumber = null
       if (creep.store.getUsedCapacity() > 0) {
