@@ -1,6 +1,6 @@
-var actionHarvest = require("actionHarvest")
+const actionFillUp = require("actionFillUp")
 
-var roleBuilder = {
+const roleBuilder = {
   /** @param {Creep} thisCreep **/
   run: function (thisCreep) {
     if (thisCreep.memory.building && thisCreep.store[RESOURCE_ENERGY] == 0) {
@@ -12,7 +12,7 @@ var roleBuilder = {
     }
 
     if (thisCreep.memory.building) {
-      var buildSites = thisCreep.room.find(FIND_MY_CONSTRUCTION_SITES)
+      const buildSites = thisCreep.room.find(FIND_MY_CONSTRUCTION_SITES)
       if (buildSites.length) {
         if (thisCreep.memory.buildSiteNumber == null) {
           thisCreep.memory.buildSiteNumber = Math.floor(
