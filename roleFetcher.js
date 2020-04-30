@@ -5,7 +5,12 @@ var roleFetcher = {
   /** @param {Creep} creep **/
   run: function (creep) {
     // Top priority: Dropped resources
-    const droppedResources = creep.room.find(FIND_DROPPED_RESOURCES)
+    const droppedResources = creep.room.find(FIND_DROPPED_RESOURCES, {
+      filter: function (resource) {
+        return resource.amount > 100
+      },
+    })
+
     if (droppedResources.length && creep.store.getFreeCapacity() > 0) {
       if (creep.memory.droppedResourceNumber == null) {
         // Randomize current droppedResource assignment
