@@ -36,10 +36,7 @@ var roleUpgrader = require("roleUpgrader")
 var roleBuilder = require("roleBuilder")
 var roleDefender = require("roleDefender")
 var roleFetcher = require("roleFetcher")
-
-const upperFirstCharacter = (string) =>
-  string.slice(0, 1).toUpperCase() + string.slice(1)
-// const unitTypesAndCounts = {harvesters: 6, "upgraders", "builders", "defenders", "fetchers"]
+var roleMiner = require("roleMiner")
 
 module.exports.loop = function () {
   // Housekeeping: Delete dead creeps from memory
