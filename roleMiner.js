@@ -59,10 +59,10 @@ const assessSources = (thisCreep) => {
       })
   })
 
-  // Select an array of miners with assigned targets from this room:
+  // Select an array of creeps with assigned destinations in this room:
   const miners = Object.keys(Game.creeps).filter(
     (creepName) =>
-      Game.creeps[creepName].memory.role === "miner" &&
+      //      Game.creeps[creepName].memory.role === "miner" &&
       Game.creeps[creepName].memory.destination != undefined &&
       Game.creeps[creepName].room === thisRoom
   )

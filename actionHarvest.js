@@ -18,11 +18,11 @@ function actionHarvest(creep) {
       })
     }
     if (creep.harvest(sources[creep.memory.sourceNumber]) === OK) {
-      // log target while harvesting
-      creep.memory.target = { x: creep.pos.x, y: creep.pos.y }
+      // Log destination while harvesting
+      creep.memory.destination = { x: creep.pos.x, y: creep.pos.y }
     }
   } else {
-    creep.memory.target = null
+    creep.memory.destination = null
     actionDeposit(creep)
   }
 }
