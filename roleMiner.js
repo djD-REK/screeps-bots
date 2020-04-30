@@ -35,9 +35,11 @@ const assessSources = (thisCreep) => {
 
   // Select all sources with available energy from this room:
   const activeSources = thisRoom.find(FIND_SOURCES_ACTIVE)
-  // Make a hash map of destination->objective: {x,y}: {x,y}} coordinates
+  // Make a hash map of destination -> objective coordinates
+  // Both are strings: e.g. [room E55N6 pos 14,11] -> [room E55N6 pos 14,11]
   const mineablePositions = new Map()
   activeSources.forEach((source) => {
+    const sourcePositionString = String(source.pos)
     const sourceX = source.pos.x
     const sourceY = source.pos.y
     // lookForAtArea(type, top, left, bottom, right, [asArray])
@@ -52,28 +54,21 @@ const assessSources = (thisCreep) => {
     lookArray
       .filter((position) => position.terrain !== "wall")
       .forEach((mineablePosition) => {
-        mineablePositions.set(
-          { x: mineablePosition.x, y: mineablePosition.y },
-          { x: sourceX, y: sourceY }
-        )
+        const mineablePositionString = String(mineablePosition.pos)
+        mineablePositions.set(mineablePositionString, sourcePositionString)
       })
   })
 
   // Select an array of creeps with assigned destinations in this room:
   const miners = Object.keys(Game.creeps).filter(
     (creepName) =>
-      //      Game.creeps[creepName].memory.role === "miner" &&
-      Game.creeps[creepName].memory.destination != undefined &&
-      Game.creeps[creepName].room === thisRoom
+      Game.creeps[creepName].memory.role === "miner" &&
+      Game.creeps[creepName].memory.destination != undefined
   )
   // Remove taken positions from the hash map of {"(x,y)": true} coordinates
   miners.forEach((creepName) => {
-    const takenPosition = {
-      x: Game.creeps[creepName].memory.destination.x,
-      y: Game.creeps[creepName].memory.destination.y,
-    }
-    mineablePositions.delete(takenPosition)
-    console.log("Taken position: " + JSON.stringify(takenPosition))
+    const takenPositionString = String(Game.creeps[creepName].pos) // e.g. [room E55N6 pos 14,11]
+    mineablePositions.delete(takenPositionString)
   })
   // The hash map mineablePositions now only includes available positions
   if (mineablePositions.size === 0) {
@@ -84,7 +79,7 @@ const assessSources = (thisCreep) => {
     // Found at least 1 available mining position
     // --> Mission: MINE
     thisCreep.memory.mission = "MINE"
-    console.log([...mineablePositions.keys()].map((obj) => JSON.stringify(obj)))
+    console.log([...mineablePositions.keys()])
     // Select a position available at random and assign it as the mission destination
     thisCreep.memory.destination = [...mineablePositions.keys()][
       Math.floor(Math.random() * mineablePositions.size)
@@ -94,8 +89,7 @@ const assessSources = (thisCreep) => {
       thisCreep.memory.destination
     )
     console.log(
-      `${thisCreep.name} assigned mission to MINE Objective (${thisCreep.memory.objective.x},` +
-        `${thisCreep.memory.objective.y}) from Destination (${thisCreep.memory.destination.x},${thisCreep.memory.destination.y})`
+      `${thisCreep.name} assigned mission to MINE Objective (${thisCreep.memory.objective}) from Destination (${thisCreep.memory.destination})`
     )
   }
 }
