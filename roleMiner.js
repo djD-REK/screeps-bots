@@ -46,7 +46,7 @@ const assessSources = (thisCreep) => {
       .forEach((mineablePositionAsJSON) => {
         // Each item returned by lookForAtArea looks like:
         // {"type":"terrain","terrain":"plain","x":24,"y":42}
-        const mineablePosition = Game.rooms[thisRoom].getPositionAt(
+        const mineablePosition = thisRoom.getPositionAt(
           mineablePositionAsJSON.x,
           mineablePositionAsJSON.y
         ) // Retrieve a RoomPosition object from the x,y coordinates
