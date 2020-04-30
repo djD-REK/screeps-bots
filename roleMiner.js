@@ -78,12 +78,11 @@ const assessSources = (thisCreep) => {
     // No available mining positions
     // --> Mission: EXPLORE
     thisCreep.memory.mission = "EXPLORE"
-    thisCreep.say("🔄 EXPLORE")
   } else {
     // Found at least 1 available mining position
     // --> Mission: MINE
     thisCreep.memory.mission = "MINE"
-    thisCreep.say("🔄 MINE")
+    console.log(mineablePositions)
     // Select a position available at random and assign it as the mission destination
     thisCreep.memory.destination = [...mineablePositions.keys()][
       Math.floor(Math.random() * mineablePositions.length)
