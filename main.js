@@ -95,7 +95,7 @@ module.exports.loop = function () {
     )
     console.log("Miners: " + miners.length)
 
-    if (harvesters.length < 2) {
+    if (harvesters.length < 4) {
       const newName = "Harvester" + harvesters.length
       console.log("Spawning new harvester: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
