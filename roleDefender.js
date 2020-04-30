@@ -1,4 +1,5 @@
-var actionExplore = require("actionExplore")
+// var actionExplore = require("actionExplore")
+var actionPatrol = require("actionPatrol")
 
 var roleDefender = {
   /** @param {Creep} thisCreep **/
@@ -10,7 +11,8 @@ var roleDefender = {
         thisCreep.moveTo(target)
       }
     } else {
-      actionExplore(thisCreep)
+      //      actionExplore(thisCreep)
+      actionPatrol(thisCreep)
     }
   },
 }
