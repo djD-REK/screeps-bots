@@ -107,23 +107,28 @@ const roleMiner = {
       thisCreep.memory.mission = "THINK"
     }
     if (thisCreep.memory.mission === "THINK") {
-      thisCreep.say("🔄 MINE")
+      thisCreep.say("🔄 THINK")
       assessSources(thisCreep)
     }
     if (thisCreep.memory.mission === "MINE") {
-      const pos = thisCreep.room.getPositionAt(
-        thisCreep.memory.objective.x,
-        thisCreep.memory.objective.y
-      )
-      const sourceAtObjective = pos.findClosestByRange(FIND_SOURCES_ACTIVE)
-      if (thisCreep.harvest(sourceAtObjective) === ERR_NOT_IN_RANGE) {
-        thisCreep.moveTo(
-          thisCreep.memory.destination.x,
-          thisCreep.memory.destination.y,
-          {
-            visualizePathStyle: { stroke: "#ffaa00" },
-          }
+      thisCreep.say("🔄 MINE")
+      if (thisCreep.memory.objective == undefined) {
+        thisCreep.memory.mission = "THINK"
+      } else {
+        const pos = thisCreep.room.getPositionAt(
+          thisCreep.memory.objective.x,
+          thisCreep.memory.objective.y
         )
+        const sourceAtObjective = pos.findClosestByRange(FIND_SOURCES_ACTIVE)
+        if (thisCreep.harvest(sourceAtObjective) === ERR_NOT_IN_RANGE) {
+          thisCreep.moveTo(
+            thisCreep.memory.destination.x,
+            thisCreep.memory.destination.y,
+            {
+              visualizePathStyle: { stroke: "#ffaa00" },
+            }
+          )
+        }
       }
     }
     if (thisCreep.memory.mission === "EXPLORE") {
