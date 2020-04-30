@@ -21,19 +21,25 @@ const actionFillUp = function (thisCreep) {
       )
     }
     if (
-      thisCreep.withdraw(storageSites[thisCreep.memory.storageSiteNumber]) ==
-      ERR_NOT_IN_RANGE
+      thisCreep.withdraw(
+        storageSites[thisCreep.memory.storageSiteNumber],
+        RESOURCE_ENERGY
+      ) == ERR_NOT_IN_RANGE
     ) {
       thisCreep.moveTo(storageSites[thisCreep.memory.storageSiteNumber], {
         visualizePathStyle: { stroke: "#ffffff" },
       })
     } else if (
-      thisCreep.withdraw(storageSites[thisCreep.memory.storageSiteNumber]) != OK
+      thisCreep.withdraw(
+        storageSites[thisCreep.memory.storageSiteNumber],
+        RESOURCE_ENERGY
+      ) != OK
     ) {
       // There was a different error
       console.log(
         `${thisCreep.name} error ${thisCreep.withdraw(
-          storageSites[thisCreep.memory.storageSiteNumber]
+          storageSites[thisCreep.memory.storageSiteNumber],
+          RESOURCE_ENERGY
         )}`
       )
       thisCreep.memory.storageSiteNumber = null
