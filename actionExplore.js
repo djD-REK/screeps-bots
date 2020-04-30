@@ -16,6 +16,7 @@ function actionExplore(thisCreep) {
   ) {
     // At an exit on the 50x50 game board
     thisCreep.memory.mission = "THINK"
+    thisCreep.memory.target = null
     // Move off the border by 1 step
     thisCreep.moveTo(25, 25)
   } else {

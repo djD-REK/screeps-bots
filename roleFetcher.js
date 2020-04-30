@@ -38,8 +38,8 @@ var roleFetcher = {
         // Drop off resources
         actionDeposit(creep)
       } else {
-        // Patrol
-        actionPatrol(creep)
+        // Explore
+        actionExplore(creep)
       }
     }
   },

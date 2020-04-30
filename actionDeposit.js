@@ -1,7 +1,8 @@
 function actionDeposit(creep) {
   creep.say("🚶 depositing")
   creep.memory.sourceNumber = null // Clear current source
-  var targets = creep.room.find(FIND_MY_STRUCTURES, {
+  //  var targets = creep.room.find(FIND_MY_STRUCTURES, {
+  var targets = Game.spawns["Spawn1"].room.find(FIND_MY_STRUCTURES, {
     filter: (structure) => {
       return (
         (structure.structureType == STRUCTURE_EXTENSION ||
