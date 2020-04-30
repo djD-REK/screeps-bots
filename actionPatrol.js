@@ -6,7 +6,7 @@ function actionPatrol(creep) {
   if (flags.length > 0) {
     if (
       creep.memory.flagNumber == null ||
-      creep.memory.flagNumber.pos == null
+      flags[creep.memory.flagNumber].pos == null
     ) {
       // null or undefined
       // Randomize current source assignment
