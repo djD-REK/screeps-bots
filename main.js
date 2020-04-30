@@ -172,9 +172,9 @@ module.exports.loop = function () {
   }
 
   // Run all creeps
-  for (const name in Game.creeps) {
+  for (const creepName in Game.creeps) {
     try {
-      const creep = Game.creeps[name]
+      const creep = Game.creeps[creepName]
       if (creep.memory.role == "defender") {
         roleDefender.run(creep)
       }
@@ -194,7 +194,7 @@ module.exports.loop = function () {
         roleBuilder.run(creep)
       }
     } catch (e) {
-      console.log(e)
+      console.log(`${creepName} threw a ${e}`)
     }
   }
 }
