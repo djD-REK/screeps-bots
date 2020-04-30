@@ -19,7 +19,7 @@ var roleUpgrader = {
         })
       }
     } else {
-      actionHarvest(creep)
+      actionFillUp(creep)
     }
   },
 }

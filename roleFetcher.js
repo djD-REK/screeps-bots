@@ -12,7 +12,7 @@ var roleFetcher = {
         creep.memory.droppedResourceNumber = Math.floor(
           Math.random() * droppedResources.length
         )
-        creep.say("🔄 FILL UP")
+        creep.say("🔄 PICK UP")
         console.log(
           `${creep.name} assigned to @droppedResources[${creep.memory.droppedResourceNumber}]`
         )
