@@ -59,8 +59,8 @@ module.exports.loop = function () {
   // [TOUGH, ATTACK, ATTACK, ATTACK, MOVE] = 300
   // Fast Defender: (Attack and patrol)
   // [MOVE, MOVE, ATTACK, ATTACK, TOUGH, TOUGH, TOUGH, TOUGH] = 300
-  // Fetcher: (Dropped resources and patrol)
-  // [MOVE, MOVE, MOVE, MOVE, CARRY, CARRY]
+  // Fetcher: (Dropped resources / Tanker)
+  // [MOVE, MOVE, CARRY, CARRY]
 
   // Spawn new creeps if at least 300 energy (default max to a spawn)
   if (Game.spawns["Spawn1"].energy >= 300) {
@@ -95,7 +95,7 @@ module.exports.loop = function () {
     )
     console.log("Miners: " + miners.length)
 
-    if (harvesters.length < 4) {
+    if (harvesters.length < 2) {
       const newName = "Harvester" + harvesters.length
       console.log("Spawning new harvester: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
@@ -116,7 +116,7 @@ module.exports.loop = function () {
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "builder" },
       })
-    } else if (fetchers.length < 1) {
+    } else if (fetchers.length < 2) {
       const newName = "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
       Game.spawns["Spawn1"].spawnCreep(
@@ -124,17 +124,17 @@ module.exports.loop = function () {
         newName,
         { memory: { role: "fetcher" } }
       )
-    } else if (defenders.length < 2) {
-      const newName = "Defender" + defenders.length
-      console.log("Spawning new defender: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, {
-        memory: { role: "defender" },
-      })
-    } else {
+    } else if (miners.length < 2) {
       const newName = "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE, MOVE], newName, {
         memory: { role: "miner" },
+      })
+    } else {
+      const newName = "Defender" + defenders.length
+      console.log("Spawning new defender: " + newName)
+      Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, {
+        memory: { role: "defender" },
       })
     }
   }
