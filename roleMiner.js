@@ -23,16 +23,6 @@ const actionExplore = require("actionExplore")
 const assessSources = (thisCreep) => {
   const thisRoom = thisCreep.room
 
-  // Using Object.keys() and Array.prototype.filter:
-  // const miners = Object.keys(Game.creeps).filter(
-  //  (creep) => Game.creeps[creep].memory.role === "miner"
-  // )
-  // Equivalent using lodash filter:
-  // const upgraders = _.filter(
-  //  Game.creeps,
-  //  (creep) => thisCreep.memory.role === "miner"
-  // )
-
   // Select all sources with available energy from this room:
   const activeSources = thisRoom.find(FIND_SOURCES_ACTIVE)
   // Make a hash map of destination -> objective coordinates
@@ -55,23 +45,13 @@ const assessSources = (thisCreep) => {
       .filter((position) => position.terrain !== "wall")
       .forEach((mineablePosition) => {
         const mineablePositionString = String(mineablePosition.pos)
-        mineablePositions.set(mineablePositionString, sourcePositionString)
+        // Remove occupied positions from the hash map
+        if (mineablePosition.pos.lookFor(LOOK_CREEPS).length === 0) {
+          mineablePositions.set(mineablePositionString, sourcePositionString)
+        }
       })
   })
 
-  // Select an array of creeps with assigned destinations in this room:
-  const miners = Object.keys(Game.creeps).filter(
-    (creepName) =>
-      Game.creeps[creepName].memory.role === "miner" &&
-      Game.creeps[creepName].memory.destination != undefined
-  )
-  // Remove taken positions from the hash map of {"(x,y)": true} coordinates
-  miners.forEach((creepName) => {
-    const takenPositionString = String(
-      Game.creeps[creepName].memory.destination
-    ) // e.g. [room E55N6 pos 14,11]
-    mineablePositions.delete(takenPositionString)
-  })
   // The hash map mineablePositions now only includes available positions
   if (mineablePositions.size === 0) {
     // No available mining positions
