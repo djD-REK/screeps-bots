@@ -46,7 +46,6 @@ const assessSources = (thisCreep) => {
       .forEach((mineablePositionAsJSON) => {
         // Each item returned by lookForAtArea looks like:
         // {"type":"terrain","terrain":"plain","x":24,"y":42}
-        console.log(mineablePositionAsJSON)
         const mineablePosition = thisRoom.getPositionAt(
           mineablePositionAsJSON.x,
           mineablePositionAsJSON.y
@@ -68,7 +67,7 @@ const assessSources = (thisCreep) => {
     // Found at least 1 available mining position
     // --> Mission: MINE
     thisCreep.memory.mission = "MINE"
-    console.log([...mineablePositions.keys()])
+    console.log("Mineable positions: " + [...mineablePositions.keys()])
     // Select a position available at random and assign it as the mission destination
     thisCreep.memory.destination = [...mineablePositions.keys()][
       Math.floor(Math.random() * mineablePositions.size)
