@@ -173,24 +173,28 @@ module.exports.loop = function () {
 
   // Run all creeps
   for (const name in Game.creeps) {
-    const creep = Game.creeps[name]
-    if (creep.memory.role == "defender") {
-      roleDefender.run(creep)
-    }
-    if (creep.memory.role == "miner") {
-      roleMiner.run(creep)
-    }
-    if (creep.memory.role == "fetcher") {
-      roleFetcher.run(creep)
-    }
-    if (creep.memory.role == "harvester") {
-      roleHarvester.run(creep)
-    }
-    if (creep.memory.role == "upgrader") {
-      roleUpgrader.run(creep)
-    }
-    if (creep.memory.role == "builder") {
-      roleBuilder.run(creep)
+    try {
+      const creep = Game.creeps[name]
+      if (creep.memory.role == "defender") {
+        roleDefender.run(creep)
+      }
+      if (creep.memory.role == "miner") {
+        roleMiner.run(creep)
+      }
+      if (creep.memory.role == "fetcher") {
+        roleFetcher.run(creep)
+      }
+      if (creep.memory.role == "harvester") {
+        roleHarvester.run(creep)
+      }
+      if (creep.memory.role == "upgrader") {
+        roleUpgrader.run(creep)
+      }
+      if (creep.memory.role == "builder") {
+        roleBuilder.run(creep)
+      }
+    } catch (e) {
+      console.log(e)
     }
   }
 }

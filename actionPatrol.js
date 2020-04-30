@@ -4,7 +4,10 @@ function actionPatrol(creep) {
   // Patrol to a random flag
   var flags = creep.room.find(FIND_FLAGS)
   if (flags.length > 0) {
-    if (creep.memory.flagNumber == null) {
+    if (
+      creep.memory.flagNumber == null ||
+      creep.memory.flagNumber.pos == null
+    ) {
       // null or undefined
       // Randomize current source assignment
       creep.memory.flagNumber = Math.floor(Math.random() * flags.length)
