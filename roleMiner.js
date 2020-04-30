@@ -82,7 +82,9 @@ const assessSources = (thisCreep) => {
     // Found at least 1 available mining position
     // --> Mission: MINE
     thisCreep.memory.mission = "MINE"
-    console.log([...mineablePositions.values()])
+    console.log(
+      [...mineablePositions.values()].map((obj) => JSON.stringify(obj))
+    )
     // Select a position available at random and assign it as the mission destination
     thisCreep.memory.destination = [...mineablePositions.keys()][
       Math.floor(Math.random() * mineablePositions.length)
