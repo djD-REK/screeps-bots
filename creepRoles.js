@@ -30,4 +30,4 @@ const creepRoles = [
   },
 ]
 
-export default creepRoles
+creepRoles // export

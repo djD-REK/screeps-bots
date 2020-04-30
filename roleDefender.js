@@ -1,5 +1,4 @@
 var actionExplore = require("actionExplore")
-var actionPatrol = require("actionPatrol")
 
 var roleDefender = {
   /** @param {Creep} thisCreep **/

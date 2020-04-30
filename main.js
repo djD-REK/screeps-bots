@@ -5,8 +5,7 @@ const roleFetcher = require("roleFetcher")
 const roleHarvester = require("roleHarvester")
 const roleUpgrader = require("roleUpgrader")
 
-const upperFirstCharacter = (string) =>
-  string.slice(0, 1).toUpperCase() + string.slice(1)
+// const upperFirstCharacter = (string) => string.slice(0, 1).toUpperCase() + string.slice(1)
 // const unitTypesAndCounts = {harvesters: 6, "upgraders", "builders", "defenders", "fetchers"]
 /*  BODYPART_COST: {
         "move": 50,
