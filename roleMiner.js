@@ -86,7 +86,7 @@ const assessSources = (thisCreep) => {
     thisCreep.say("🔄 MINE")
     // Select a position available at random and assign it as the mission destination
     thisCreep.memory.destination = [...mineablePositions.keys()][
-      Math.floor(Math.random() * mineablePositions.size)
+      Math.floor(Math.random() * mineablePositions.length)
     ]
     // Assign the energy source to the mission objective
     thisCreep.memory.objective = mineablePositions.get(
