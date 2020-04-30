@@ -46,6 +46,7 @@ const assessSources = (thisCreep) => {
       .forEach((mineablePositionAsJSON) => {
         // Each item returned by lookForAtArea looks like:
         // {"type":"terrain","terrain":"plain","x":24,"y":42}
+        console.log(mineablePositionAsJSON)
         const mineablePosition = thisRoom.getPositionAt(
           mineablePositionAsJSON.x,
           mineablePositionAsJSON.y
