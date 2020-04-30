@@ -118,6 +118,12 @@ module.exports.loop = function () {
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "builder" },
       })
+    } else if (miners.length < 5) {
+      const newName = "Miner" + miners.length
+      console.log("Spawning new miner: " + newName)
+      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, {
+        memory: { role: "miner" },
+      })
     } else if (fetchers.length < 4) {
       const newName = "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
@@ -126,12 +132,6 @@ module.exports.loop = function () {
         newName,
         { memory: { role: "fetcher" } }
       )
-    } else if (miners.length < 5) {
-      const newName = "Miner" + miners.length
-      console.log("Spawning new miner: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, {
-        memory: { role: "miner" },
-      })
     } else {
       const newName = "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
