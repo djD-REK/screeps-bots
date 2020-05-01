@@ -20,6 +20,20 @@
 
 const actionExplore = require("actionExplore")
 
+const convertRoomPositionStringBackToRoomPositionObject = (
+  stringRoomPosition
+) => {
+  // input example: [room E56N8 pos 23,26]
+  // output example: new RoomPosition(23, 26, 'E56N8');
+  // Using the constructor for to create a new RoomPosition object: constructor(x, y, roomName)
+  // Output example: const pos = new RoomPosition(10, 25, 'sim');
+  // --> from https://docs.screeps.com/api/#RoomPosition
+  const roomName = stringRoomPosition.substring(6, 11) // e.g. E56N8
+  const xCoordinate = Number(stringRoomPosition.substring(16, 18)) // e.g. 23
+  const yCoordinate = Number(stringRoomPosition.substring(19, 21)) // e.g. 26
+  return new RoomPosition(xCoordinate, yCoordinate, roomName) // e.g. new RoomPosition(23, 26, "E56N8")
+}
+
 const assessSources = (thisCreep) => {
   const thisRoom = thisCreep.room
 
@@ -49,7 +63,7 @@ const assessSources = (thisCreep) => {
         const mineablePosition = thisRoom.getPositionAt(
           mineablePositionAsJSON.x,
           mineablePositionAsJSON.y
-        ) // Retrieve a RoomPosition object from the x,y coordinates
+        ) // Retrieve a RoomPosition object, mineablePosition, from the x,y coordinates
         const mineablePositionString = String(mineablePosition)
         // Remove occupied positions from the hash map
         if (mineablePosition.lookFor(LOOK_CREEPS).length === 0) {
@@ -68,11 +82,12 @@ const assessSources = (thisCreep) => {
     // --> Mission: MINE
     thisCreep.memory.mission = "MINE"
     console.log("Mineable positions: " + [...mineablePositions.keys()])
-    // Select a position available at random and assign it as the mission destination
+    // Select a position available at random and assign it as the mission destination (RoomPosition object stored in memory)
     thisCreep.memory.destination = [...mineablePositions.keys()][
       Math.floor(Math.random() * mineablePositions.size)
     ]
-    // Assign the energy source to the mission objective
+    // Assign the energy source to the mission objective (string resulting from RoomPosition object stored in memory)
+    // Hash key accessed by string lookup of string resulting from RoomPosition
     thisCreep.memory.objective = mineablePositions.get(
       thisCreep.memory.destination
     )
@@ -100,15 +115,18 @@ const roleMiner = {
       if (thisCreep.memory.objective == undefined) {
         thisCreep.memory.mission = "THINK"
       } else {
-        const pos = thisCreep.room.getPositionAt(
-          thisCreep.memory.objective.x,
-          thisCreep.memory.objective.y
+        // In the creep's memory, the objective and destination are stored as strings, so we have to convert them
+        const sourcePosition = convertRoomPositionStringBackToRoomPositionObject(
+          thisCreep.memory.objective
         )
-        const sourceAtObjective = pos.findClosestByRange(FIND_SOURCES_ACTIVE)
-        if (thisCreep.harvest(sourceAtObjective) === ERR_NOT_IN_RANGE) {
+        const sourceObjectAtObjective = sourcePosition.findClosestByRange(
+          FIND_SOURCES_ACTIVE
+        )
+        if (thisCreep.harvest(sourceObjectAtObjective) === ERR_NOT_IN_RANGE) {
           thisCreep.moveTo(
-            thisCreep.memory.destination.x,
-            thisCreep.memory.destination.y,
+            convertRoomPositionStringBackToRoomPositionObject(
+              thisCreep.memory.destination
+            ),
             {
               visualizePathStyle: { stroke: "#ffaa00" },
             }
