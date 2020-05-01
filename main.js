@@ -65,10 +65,14 @@ module.exports.loop = function () {
 
   // Spawn new creeps if at least 300 energy (default max to a spawn)
   // Initially Game.spawns["Spawn1"].room.energyCapacityAvailable === 300
-  // Currently Game.spawns["Spawn1"].room.energyCapacityAvailable === 550
-  if (
+  /* if (
     Game.spawns["Spawn1"].room.energyAvailable >=
       Game.spawns["Spawn1"].room.energyCapacityAvailable &&
+    Game.spawns["Spawn1"].spawning == undefined
+  ) */
+  // Currently Game.spawns["Spawn1"].room.energyCapacityAvailable === 550
+  if (
+    Game.spawns["Spawn1"].room.energyAvailable >= 300 &&
     Game.spawns["Spawn1"].spawning == undefined
   ) {
     const harvesters = _.filter(
@@ -105,20 +109,21 @@ module.exports.loop = function () {
     if (fetchers.length < miners.length) {
       const newName = Game.time + "_" + "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
+      // [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY], // 500
       //        [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY], // 300
       Game.spawns["Spawn1"].spawnCreep(
-        [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY], // 500
+        [MOVE, MOVE, CARRY, CARRY, CARRY, CARRY], // 300
         newName,
         { memory: { role: "fetcher" } }
       )
     } else if (upgraders.length < miners.length / 5) {
       const newName = Game.time + "_" + "Upgrader" + upgraders.length
       console.log("Spawning new upgrader: " + newName)
-      // [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY] // 500
-      // [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY] // 550
-      // [WORK, MOVE, MOVE, CARRY] // 300
+      // [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY], // 500
+      // [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY], // 550
+      // [WORK, MOVE, MOVE, CARRY], // 250
       Game.spawns["Spawn1"].spawnCreep(
-        [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY],
+        [WORK, WORK, MOVE, CARRY], // 300
         newName,
         {
           memory: { role: "upgrader" },
@@ -130,11 +135,11 @@ module.exports.loop = function () {
     ) {
       const newName = Game.time + "_" + "Builder" + builders.length
       console.log("Spawning new builder: " + newName)
-      // [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY] // 500
-      // [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY] // 550
-      // [WORK, MOVE, MOVE, CARRY] // 300
+      // [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY], // 500
+      // [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY], // 550
+      // [WORK, MOVE, MOVE, CARRY], // 250
       Game.spawns["Spawn1"].spawnCreep(
-        [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY],
+        [WORK, WORK, MOVE, CARRY], // 300
         newName,
         {
           memory: { role: "builder" },
@@ -143,10 +148,10 @@ module.exports.loop = function () {
     } else if (defenders.length < miners.length / 2) {
       const newName = Game.time + "_" + "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
-      // [ATTACK, ATTACK, MOVE, MOVE] // 260
-      // [ATTACK, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE ] // 520
+      // [ATTACK, ATTACK, MOVE, MOVE], // 260
+      // [ATTACK, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE ], // 520
       Game.spawns["Spawn1"].spawnCreep(
-        [ATTACK, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE],
+        [ATTACK, ATTACK, ATTACK, MOVE], // 290
         newName,
         {
           memory: { role: "defender" },
@@ -155,10 +160,10 @@ module.exports.loop = function () {
     } else {
       const newName = Game.time + "_" + "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
-      // [WORK, WORK, MOVE, MOVE] // 300
-      // [WORK, WORK, WORK, WORK, MOVE, MOVE] // 500
+      // [WORK, WORK, MOVE, MOVE], // 300
+      // [WORK, WORK, WORK, WORK, MOVE, MOVE], // 500
       Game.spawns["Spawn1"].spawnCreep(
-        [WORK, WORK, WORK, WORK, MOVE, MOVE],
+        [WORK, WORK, MOVE], // 250
         newName,
         {
           memory: { role: "miner" },
