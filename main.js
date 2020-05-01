@@ -160,11 +160,11 @@ module.exports.loop = function () {
     } else {
       const newName = Game.time + "_" + "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
-      // [WORK, WORK, MOVE, MOVE], // 300
+      //  [WORK, WORK, MOVE], // 250
       // [WORK, WORK, WORK, WORK, MOVE, MOVE], // 500
       Game.spawns["Spawn1"].spawnCreep(
-        [WORK, WORK, MOVE], // 250
         newName,
+        [WORK, WORK, MOVE, MOVE], // 300
         {
           memory: { role: "miner" },
         }
