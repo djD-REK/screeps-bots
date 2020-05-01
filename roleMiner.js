@@ -54,9 +54,9 @@ const assessSources = (thisCreep) => {
         ) // Retrieve a RoomPosition object, mineablePosition, from the x,y coordinates
         const mineablePositionString = String(mineablePosition)
         // Remove occupied positions from the hash map
-        if (mineablePosition.lookFor(LOOK_CREEPS).length === 0) {
-          mineablePositions.set(mineablePositionString, sourcePositionString)
-        }
+        // if (mineablePosition.lookFor(LOOK_CREEPS).length === 0) {
+        mineablePositions.set(mineablePositionString, sourcePositionString)
+        //}
       })
   })
 
@@ -120,6 +120,8 @@ const roleMiner = {
     } else {
       if (thisCreep.memory.mission === "THINK") {
         thisCreep.say("🔄 THINK")
+        thisCreep.memory.objective = null
+        thisCreep.memory.destination = null
         assessSources(thisCreep)
       }
       if (thisCreep.memory.mission === "MINE") {
