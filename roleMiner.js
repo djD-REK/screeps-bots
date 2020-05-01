@@ -127,8 +127,10 @@ const roleMiner = {
           FIND_SOURCES_ACTIVE
         )
         if (thisCreep.harvest(sourceObjectAtObjective) === ERR_NOT_IN_RANGE) {
+          console.log(130)
           if (sourcePosition.lookFor(LOOK_CREEPS).length > 0) {
             thisCreep.memory.mission = "THINK"
+            console.log(133)
           }
           thisCreep.moveTo(
             convertRoomPositionStringBackToRoomPositionObject(
