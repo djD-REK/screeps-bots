@@ -12,6 +12,16 @@ var roleFetcher = {
     // If we have at least 50 resources (CARRY_CAPACITY), which is
     // the same as EXTENSION_ENERGY_CAPACITY[0] (i.e. 50 energy)
 
+    // Ant-style: mark current position for a future road
+    if (
+      _.filter(
+        thisCreep.pos.look(),
+        (object) => object.type === "constructionSite"
+      ) === 0
+    ) {
+      thisCreep.room.createConstructionSite(thisCreep.pos, STRUCTURE_ROAD)
+    }
+
     // Only bring back full loads
     if (thisCreep.memory.mission === "DEPOSIT") {
       actionDeposit(thisCreep)
