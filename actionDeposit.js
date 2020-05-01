@@ -35,15 +35,15 @@ function actionDeposit(thisCreep) {
     thisCreep.moveTo(Game.spawns["Spawn1"].pos, {
       visualizePathStyle: { stroke: "#ffffff" },
     })
-    /* if (
+    if (
       thisCreep.room === Game.spawns["Spawn1"].room &&
-      thisCreep.pos.getRangeTo(Game.spawns["Spawn1"].pos) < 5
+      thisCreep.pos.getRangeTo(Game.spawns["Spawn1"].pos) < 3
     ) {
       console.log("Drop it! There are 0 available targets in the home room.")
       thisCreep.say("DROP IT!")
       // There's an issue, so let's drop our resources and mosey on
       thisCreep.drop(RESOURCE_ENERGY)
-    } */
+    }
   }
 }
 

@@ -193,7 +193,7 @@ module.exports.loop = function () {
       "🛠️" +
         spawningCreep.memory.role +
         Math.floor(spawnObject.remainingTime / spawnObject.needTime) +
-        "%",
+        " %",
       Game.spawns["Spawn1"].pos.x + 1,
       Game.spawns["Spawn1"].pos.y,
       { align: "left", opacity: 0.8 }
