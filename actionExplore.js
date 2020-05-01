@@ -28,7 +28,9 @@ function actionExplore(thisCreep) {
     const destinationRoom =
       exitRoomNameArray[Math.floor(exitRoomNameArray.length * Math.random())][0]
 
-    thisCreep.memory.destination = String(RoomPosition(25, 25, destinationRoom))
+    thisCreep.memory.destination = String(
+      new RoomPosition(25, 25, destinationRoom)
+    )
 
     console.log(
       `${thisCreep.name} assigned mission to EXPLORE to Destination ${thisCreep.memory.destination}`
