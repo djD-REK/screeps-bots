@@ -28,7 +28,9 @@ function actionExplore(thisCreep) {
 
     // Select an exit to move to at random
     const destinationRoom =
-      exitRoomNameArray[Math.floor(exitRoomNameArray.length * Math.random())][0]
+      exitRoomNameArray[Math.floor(exitRoomNameArray.length * Math.random())]
+
+      console.log{`${thisCreep.name} selected destination ${destinationRoom}`}
 
     thisCreep.memory.destination = String(
       new RoomPosition(25, 25, destinationRoom)
