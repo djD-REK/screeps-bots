@@ -113,57 +113,59 @@ const assessSources = (thisCreep) => {
 const roleMiner = {
   /** @param {Creep} thisCreep **/
   run: function (thisCreep) {
-    if (thisCreep.memory.mission == undefined) {
+    if (thisCreep.spawning === true) {
+      // INIT mission
       thisCreep.memory.home == thisCreep.room
       thisCreep.memory.mission = "THINK"
-    }
-    if (thisCreep.memory.mission === "THINK") {
-      thisCreep.say("🔄 THINK")
-      assessSources(thisCreep)
-    }
-    if (thisCreep.memory.mission === "MINE") {
-      if (Math.random() < 0.01) {
-        thisCreep.say("🔄 MINE")
+    } else {
+      if (thisCreep.memory.mission === "THINK") {
+        thisCreep.say("🔄 THINK")
+        assessSources(thisCreep)
       }
-      if (
-        thisCreep.memory.objective == undefined ||
-        thisCreep.memory.destination == undefined
-      ) {
-        thisCreep.memory.mission = "THINK"
-      } else {
-        // In the creep's memory, the objective and destination are stored as strings, so we have to convert them
-        const sourcePosition = convertRoomPositionStringBackToRoomPositionObject(
-          thisCreep.memory.objective
-        )
-        const destinationPosition = convertRoomPositionStringBackToRoomPositionObject(
-          thisCreep.memory.destination
-        )
-        const sourceObjectAtObjective = sourcePosition.findClosestByRange(
-          FIND_SOURCES_ACTIVE
-        )
-        if (
-          thisCreep.harvest(sourceObjectAtObjective) < 0 &&
-          thisCreep.harvest(sourceObjectAtObjective) !== ERR_NOT_IN_RANGE
-        ) {
-          // Think about it if our mining site is giving us an error, such as because it's empty
-          thisCreep.memory.mission = "THINK"
+      if (thisCreep.memory.mission === "MINE") {
+        if (Math.random() < 0.01) {
+          thisCreep.say("🔄 MINE")
         }
-        if (thisCreep.harvest(sourceObjectAtObjective) === ERR_NOT_IN_RANGE) {
-          if (destinationPosition.lookFor(LOOK_CREEPS).length > 0) {
-            // Think about it if our mining site is occupied
+        if (
+          thisCreep.memory.objective == undefined ||
+          thisCreep.memory.destination == undefined
+        ) {
+          thisCreep.memory.mission = "THINK"
+        } else {
+          // In the creep's memory, the objective and destination are stored as strings, so we have to convert them
+          const sourcePosition = convertRoomPositionStringBackToRoomPositionObject(
+            thisCreep.memory.objective
+          )
+          const destinationPosition = convertRoomPositionStringBackToRoomPositionObject(
+            thisCreep.memory.destination
+          )
+          const sourceObjectAtObjective = sourcePosition.findClosestByRange(
+            FIND_SOURCES_ACTIVE
+          )
+          if (
+            thisCreep.harvest(sourceObjectAtObjective) < 0 &&
+            thisCreep.harvest(sourceObjectAtObjective) !== ERR_NOT_IN_RANGE
+          ) {
+            // Think about it if our mining site is giving us an error, such as because it's empty
             thisCreep.memory.mission = "THINK"
           }
-          thisCreep.moveTo(destinationPosition, {
-            visualizePathStyle: { stroke: "#ffaa00" },
-          })
+          if (thisCreep.harvest(sourceObjectAtObjective) === ERR_NOT_IN_RANGE) {
+            if (destinationPosition.lookFor(LOOK_CREEPS).length > 0) {
+              // Think about it if our mining site is occupied
+              thisCreep.memory.mission = "THINK"
+            }
+            thisCreep.moveTo(destinationPosition, {
+              visualizePathStyle: { stroke: "#ffaa00" },
+            })
+          }
         }
       }
-    }
-    if (thisCreep.memory.mission === "EXPLORE") {
-      if (Math.random() < 0.1) {
-        thisCreep.memory.mission === "THINK"
+      if (thisCreep.memory.mission === "EXPLORE") {
+        if (Math.random() < 0.1) {
+          thisCreep.memory.mission === "THINK"
+        }
+        actionExplore(thisCreep)
       }
-      actionExplore(thisCreep)
     }
   },
 }
