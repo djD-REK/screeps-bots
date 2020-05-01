@@ -1,4 +1,5 @@
 // TODO: Refactor how target is stored in memory with newer version (string)
+const convertRoomPositionStringBackToRoomPositionObject = require("convertRoomPositionStringBackToRoomPositionObject")
 
 function actionExplore(thisCreep) {
   // TODO: make sure target is getting unset
@@ -7,7 +8,9 @@ function actionExplore(thisCreep) {
     const exits = thisCreep.room.find(FIND_EXIT)
     // Select an exit to move to at random
     // TODO: Fix that target here is a RoomPosition object, not a string
-    thisCreep.memory.target = exits[Math.floor(exits.length * Math.random())]
+    thisCreep.memory.target = String(
+      exits[Math.floor(exits.length * Math.random())].pos
+    )
     console.log(
       `${thisCreep.name} assigned mission to EXPLORE to Target ${thisCreep.memory.target}`
     )
@@ -25,9 +28,14 @@ function actionExplore(thisCreep) {
     thisCreep.moveTo(25, 25)
   } else {
     // Move toward the assigned exit tile
-    thisCreep.moveTo(thisCreep.memory.target, {
-      visualizePathStyle: { stroke: "#ffaa00" },
-    })
+    thisCreep.moveTo(
+      convertRoomPositionStringBackToRoomPositionObject(
+        thisCreep.memory.target
+      ),
+      {
+        visualizePathStyle: { stroke: "#ffaa00" },
+      }
+    )
   }
 }
 
