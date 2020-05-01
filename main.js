@@ -116,7 +116,7 @@ module.exports.loop = function () {
         newName,
         { memory: { role: "fetcher" } }
       )
-    } else if (miners.length < 10) {
+    } else if (miners.length < 20) {
       const newName = Game.time + "_" + "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
       // [WORK, WORK, MOVE, MOVE] // 300
