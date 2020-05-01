@@ -29,9 +29,9 @@ var roleFetcher = {
           Game.creeps[creepName].memory.objective != undefined &&
           creepName !== thisCreep.Name
       )
-      const fetcherDroppedTargets = fetchers.map((creepName) => {
-        String(Game.creeps[creepName].memory.objective)
-      })
+      const fetcherDroppedTargets = fetchers.map(
+        (creepName) => Game.creeps[creepName].memory.objective
+      )
       // Top priority: Dropped resources
       // - that have at least our carrying capacity
       // - and that no other fetchers are assigned to
