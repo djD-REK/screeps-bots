@@ -1,6 +1,7 @@
 // TODO: Refactor how target is stored in memory with newer version (string)
 
 function actionExplore(thisCreep) {
+  // TODO: make sure target is getting unset
   if (thisCreep.memory.target == undefined) {
     thisCreep.say("🚶 EXPLORE")
     const exits = thisCreep.room.find(FIND_EXIT)
@@ -24,7 +25,7 @@ function actionExplore(thisCreep) {
     thisCreep.moveTo(25, 25)
   } else {
     // Move toward the assigned exit tile
-    thisCreep.moveTo(thisCreep.memory.target.x, thisCreep.memory.target.y, {
+    thisCreep.moveTo(thisCreep.memory.target {
       visualizePathStyle: { stroke: "#ffaa00" },
     })
   }
