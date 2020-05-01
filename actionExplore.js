@@ -8,12 +8,10 @@ function actionExplore(thisCreep) {
     typeof thisCreep.memory.destination != "string"
   ) {
     thisCreep.say("🚶 EXPLORE")
-    console.log(JSON.stringify(Game.map.describeExits(thisCreep.room.name)))
     // const exitPositions = thisCreep.room.find(FIND_EXIT)
     const exitRoomNameArray = Array.from(
       Object.values(Game.map.describeExits(thisCreep.room.name))
     )
-    console.log(JSON.stringify(exitRoomNameArray))
     /* Game.map.describeExits(thisCreep.room.name) Return value
     
 
