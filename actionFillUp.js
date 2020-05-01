@@ -32,7 +32,7 @@ const actionFillUp = function (thisCreep) {
         RESOURCE_ENERGY
       ) == ERR_NOT_IN_RANGE
     ) {
-      thisCreep.moveTo(storageSites[thisCreep.memory.storageSiteNumber], {
+      thisCreep.moveTo(storageSites[thisCreep.memory.storageSiteNumber].pos, {
         visualizePathStyle: { stroke: "#ffffff" },
       })
     } else if (
