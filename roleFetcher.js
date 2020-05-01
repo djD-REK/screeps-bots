@@ -21,12 +21,34 @@ var roleFetcher = {
       // We can clear our marker of which structure we were filling
       thisCreep.memory.depositTargetNumber = null
 
-      // Top priority: Dropped resources that have at least triple our carrying capacity
-      const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+      // Top priority: Dropped resources
+      // - that have at least triple our carrying capacity
+      // - that fewer than 3 fetchers are assigned to
+      let droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
           return resource.amount >= 3 * carryingCapacity
         },
       })
+
+      const fetchers = Object.keys(Game.creeps).filter(
+        (creepName) =>
+          Game.creeps[creepName].memory.role === "fetcher" &&
+          Game.creeps[creepName].memory.droppedResourceNumber != undefined &&
+          Game.creeps[creepName].room === thisCreep.room &&
+          creepName !== thisCreep.Name
+      )
+      const countsOfAssignments = Array.from(droppedResources.length + 1).map(
+        () => 0
+      )
+      fetchers.forEach((creepName) => {
+        countsOfAssignments[
+          Game.creeps[creepName].memory.droppedResourceNumber
+        ]++
+      })
+      countsOfAssignments.forEach((count, index) => {
+        if (countsOfAssignments > 3) droppedResources.splice(index, 1)
+      })
+
       if (droppedResources.length) {
         if (thisCreep.memory.droppedResourceNumber == null) {
           // Randomize current droppedResource assignment
