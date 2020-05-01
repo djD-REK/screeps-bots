@@ -9,10 +9,11 @@ var roleFetcher = {
     const carryingCapacity =
       thisCreep.body.filter((bodyPartObject) => bodyPartObject.type === CARRY)
         .length * CARRY_CAPACITY
+    // If we have at least 50 resources (CARRY_CAPACITY), which is
+    // the same as EXTENSION_ENERGY_CAPACITY[0] (i.e. 50 energy)
 
-    if (thisCreep.store.getUsedCapacity() >= CARRY_CAPACITY) {
-      // If we have at least 50 resources (CARRY_CAPACITY), which is
-      // the same as EXTENSION_ENERGY_CAPACITY[0] (i.e. 50 energy)
+    // Only bring back full loads
+    if (thisCreep.store.getUsedCapacity() >= carryingCapacity) {
       // We can clear our marker of which resource we were gathering
       thisCreep.memory.droppedResourceNumber = null
       thisCreep.memory.objective = null
@@ -42,7 +43,6 @@ var roleFetcher = {
       // TODO: assign a number of fetchers dynamically?
       */
 
-      /*
       const fetchers = Object.keys(Game.creeps).filter(
         (creepName) =>
           Game.creeps[creepName].memory.role === "fetcher" &&
@@ -50,17 +50,18 @@ var roleFetcher = {
           creepName !== thisCreep.name
       )
       // Count other fetchers in the same room
-      const targetResourceAmount = (fetchers.length * carryingCapacity) / 2
-      //console.log(        `${thisCreep.name} is seeking energy drops >= ${targetResourceAmount} in ${thisCreep.room}`)
+      const targetResourceAmount = (fetchers.length * carryingCapacity) / 3
+      // console.log(
+      //   `${thisCreep.name} is seeking energy drops >= ${targetResourceAmount} in ${thisCreep.room}`
+      // )
       const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
           return resource.amount >= targetResourceAmount
         },
       })
-      // Only target resources that have at least that many times carryingCapacity / 2
-      */
+      // Only target resources that have at least that many times carryingCapacity
 
-      const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+      /* const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
           return resource.amount >= 1 * carryingCapacity
         },
