@@ -3,10 +3,10 @@ const convertRoomPositionStringBackToRoomPositionObject = require("convertRoomPo
 
 function actionExplore(thisCreep) {
   // TODO: make sure destination is getting unset
-  if (
+  /*  if (
     thisCreep.memory.destination == undefined ||
     typeof thisCreep.memory.destination != "string"
-  ) {
+  )*/ {
     thisCreep.say("🚶 EXPLORE")
     console.log(JSON.stringify(Game.map.describeExits(thisCreep.room.name)))
     // const exitPositions = thisCreep.room.find(FIND_EXIT)
@@ -47,7 +47,7 @@ function actionExplore(thisCreep) {
     thisCreep.memory.destination = null
     // Move off the border by 1 step
     thisCreep.moveTo(25, 25)
-  } else {
+  } /* else {
     console.log(thisCreep.memory.destination)
     // Move toward the assigned exit tile
     thisCreep.moveTo(
@@ -58,7 +58,7 @@ function actionExplore(thisCreep) {
         visualizePathStyle: { stroke: "#ffaa00" },
       }
     )
-  }
+  }*/
 }
 
 module.exports = actionExplore
