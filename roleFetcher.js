@@ -60,10 +60,10 @@ var roleFetcher = {
 
       const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
-          return resource.amount >= 1 * carryingCapacity
+          return resource.amount >= 3 * carryingCapacity
         },
       })
-      console.log(droppedResources[0].amount)
+      // Target 3x carryingCapacity, i.e. big loads only
 
       if (droppedResources.length) {
         if (thisCreep.memory.droppedResourceNumber == null) {
