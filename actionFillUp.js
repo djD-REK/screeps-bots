@@ -23,6 +23,14 @@ const actionFillUp = function (thisCreep) {
       )
     }
     if (
+      storageSites[thisCreep.memory.storageSiteNumber].store.getUsedCapacity(
+        RESOURCE_ENERGY
+      ) === 0
+    ) {
+      // it's empty
+      thisCreep.memory.storageSiteNumber = null
+    }
+    if (
       thisCreep.withdraw(
         storageSites[thisCreep.memory.storageSiteNumber],
         RESOURCE_ENERGY
