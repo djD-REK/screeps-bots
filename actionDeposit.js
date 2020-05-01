@@ -2,37 +2,35 @@
 
 function actionDeposit(thisCreep) {
   thisCreep.say("🚶 depositing")
-  // var targets = thisCreep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-  var targets = thisCreep.room.find(FIND_MY_STRUCTURES, {
-    // var targets = Game.spawns["Spawn1"].room.find(FIND_MY_STRUCTURES, {
-    filter: (structure) => {
-      return (
-        (structure.structureType == STRUCTURE_EXTENSION ||
-          structure.structureType == STRUCTURE_SPAWN ||
-          structure.structureType == STRUCTURE_TOWER ||
-          structure.structureType == STRUCTURE_CONTAINER ||
-          structure.structureType == STRUCTURE_STORAGE) &&
-        structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-      )
-    },
-  })
-  if (targets.length > 0) {
-    thisCreep.memory.depositTargetNumber = Math.floor(
-      Math.random() * targets.length
-    )
+  const targetDropOffSite = thisCreep.pos.findClosestByRange(
+    FIND_MY_STRUCTURES,
+    {
+      //var targets = thisCreep.room.find(FIND_MY_STRUCTURES, {
+      // var targets = Game.spawns["Spawn1"].room.find(FIND_MY_STRUCTURES, {
+      filter: (structure) => {
+        return (
+          (structure.structureType == STRUCTURE_EXTENSION ||
+            structure.structureType == STRUCTURE_SPAWN ||
+            structure.structureType == STRUCTURE_TOWER ||
+            structure.structureType == STRUCTURE_CONTAINER ||
+            structure.structureType == STRUCTURE_STORAGE) &&
+          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+        )
+      },
+    }
+  )
+  if (targetDropOffSite != null) {
+    // There is somewhere to drop it off in the current room
     if (
-      thisCreep.transfer(
-        targets[thisCreep.memory.depositTargetNumber],
-        RESOURCE_ENERGY
-      ) === ERR_NOT_IN_RANGE
+      thisCreep.transfer(targetDropOffSite, RESOURCE_ENERGY) ===
+      ERR_NOT_IN_RANGE
     ) {
-      thisCreep.moveTo(targets[thisCreep.memory.depositTargetNumber], {
+      thisCreep.moveTo(targetDropOffSite, {
         visualizePathStyle: { stroke: "#ffffff" },
       })
     }
   } else {
-    // TODO make dynamic instead of always going home
-    // actionExplore()
+    // There is nowhere to drop it off in the current room
     if (
       thisCreep.room === Game.spawns["Spawn1"].room &&
       thisCreep.pos.getRangeTo(Game.spawns["Spawn1"].pos) < 5
