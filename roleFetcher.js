@@ -13,16 +13,21 @@ var roleFetcher = {
     // the same as EXTENSION_ENERGY_CAPACITY[0] (i.e. 50 energy)
 
     // Only bring back full loads
+    if (thisCreep.memory.mission === "DEPOSIT") {
+      actionDeposit(thisCreep)
+      if (thisCreep.store.getUsedCapacity() === 0) {
+        // We can clear our marker of which structure we were filling
+        thisCreep.memory.depositTargetNumber = null
+        thisCreep.memory.mission === "PICK UP"
+      }
+    }
     if (thisCreep.store.getUsedCapacity() >= carryingCapacity) {
       // We can clear our marker of which resource we were gathering
       thisCreep.memory.droppedResourceNumber = null
       thisCreep.memory.objective = null
       // And go to to drop off resources
-      actionDeposit(thisCreep)
+      thisCreep.memory.mission = "DEPOSIT"
     } else {
-      // We can clear our marker of which structure we were filling
-      thisCreep.memory.depositTargetNumber = null
-
       /* TODO: Fix fetcher competition logic, based e.g. on miner logic
       // Get all the fetchers who have assigned objectives
 
