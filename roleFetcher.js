@@ -46,7 +46,7 @@ var roleFetcher = {
       countsOfAssignments.forEach((count, index) => {
         if (count > 3) {
           console.log(
-            `Game.creeps[creepName] was feeling crowded, so is going to look around.`
+            `${thisCreep.name} was feeling crowded, so is going to look around.`
           )
           droppedResources.splice(index, 1)
         }
