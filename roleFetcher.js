@@ -42,6 +42,7 @@ var roleFetcher = {
       // TODO: assign a number of fetchers dynamically?
       */
 
+      /*
       const fetchers = Object.keys(Game.creeps).filter(
         (creepName) =>
           Game.creeps[creepName].memory.role === "fetcher" &&
@@ -57,8 +58,9 @@ var roleFetcher = {
         },
       })
       // Only target resources that have at least that many times carryingCapacity / 2
+      */
 
-      /* const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+      const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
           return resource.amount >= 1 * carryingCapacity
         },
