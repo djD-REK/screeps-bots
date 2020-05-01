@@ -46,7 +46,11 @@ const actionFillUp = function (thisCreep) {
         `${thisCreep.name} withdraw error ${thisCreep.withdraw(
           storageSites[thisCreep.memory.storageSiteNumber],
           RESOURCE_ENERGY
-        )}`
+        )} Storage unit ${storageSites[thisCreep.memory.storageSiteNumber]} ${
+          storageSites[thisCreep.memory.storageSiteNumber].pos
+        } Structure Type ${
+          storageSites[thisCreep.memory.storageSiteNumber].structureType
+        }`
       )
       thisCreep.memory.storageSiteNumber = null
     }
