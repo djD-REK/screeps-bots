@@ -46,6 +46,7 @@ function actionExplore(thisCreep) {
     // Move off the border by 1 step
     thisCreep.moveTo(25, 25)
   } else {
+    console.log(thisCreep.memory.destination)
     // Move toward the assigned exit tile
     thisCreep.moveTo(
       convertRoomPositionStringBackToRoomPositionObject(
