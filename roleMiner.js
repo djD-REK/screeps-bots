@@ -116,20 +116,20 @@ const roleMiner = {
       if (Math.random() < 0.01) {
         thisCreep.say("🔄 MINE")
       }
-      const sourcePosition = convertRoomPositionStringBackToRoomPositionObject(
-        thisCreep.memory.objective
-      )
-      if (
-        thisCreep.memory.objective == undefined ||
-        sourcePosition.lookFor(LOOK_CREEPS).length > 0
-      ) {
+      if (thisCreep.memory.objective == undefined) {
         thisCreep.memory.mission = "THINK"
       } else {
         // In the creep's memory, the objective and destination are stored as strings, so we have to convert them
+        const sourcePosition = convertRoomPositionStringBackToRoomPositionObject(
+          thisCreep.memory.objective
+        )
         const sourceObjectAtObjective = sourcePosition.findClosestByRange(
           FIND_SOURCES_ACTIVE
         )
         if (thisCreep.harvest(sourceObjectAtObjective) === ERR_NOT_IN_RANGE) {
+          if (sourcePosition.lookFor(LOOK_CREEPS).length > 0) {
+            thisCreep.memory.mission = "THINK"
+          }
           thisCreep.moveTo(
             convertRoomPositionStringBackToRoomPositionObject(
               thisCreep.memory.destination
