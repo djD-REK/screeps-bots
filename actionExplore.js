@@ -1,3 +1,5 @@
+// TODO: Refactor how target is stored in memory with newer version (string)
+
 function actionExplore(thisCreep) {
   if (thisCreep.memory.target == undefined) {
     thisCreep.say("🚶 EXPLORE")
