@@ -18,7 +18,7 @@ var roleFetcher = {
       if (thisCreep.store.getUsedCapacity() === 0) {
         // We can clear our marker of which structure we were filling
         thisCreep.memory.depositTargetNumber = null
-        thisCreep.memory.mission === "PICK UP"
+        thisCreep.memory.mission = "PICK UP"
       }
     } else {
       if (thisCreep.store.getUsedCapacity() >= carryingCapacity) {
