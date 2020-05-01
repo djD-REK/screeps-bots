@@ -3,10 +3,7 @@ const convertRoomPositionStringBackToRoomPositionObject = require("convertRoomPo
 
 function actionExplore(thisCreep) {
   // TODO: make sure target is getting unset
-  if (
-    thisCreep.memory.target == undefined ||
-    typeof thisCreep.memory.target != "string"
-  ) {
+  if (thisCreep.memory.target == undefined) {
     thisCreep.say("🚶 EXPLORE")
     const exits = thisCreep.room.find(FIND_EXIT)
     // Select an exit to move to at random
