@@ -132,9 +132,10 @@ module.exports.loop = function () {
       const newName = Game.time + "_" + "Upgrader" + upgraders.length
       console.log("Spawning new upgrader: " + newName)
       // [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY] // 500
+      // [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY] // 550
       // [WORK, MOVE, MOVE, CARRY] // 300
       Game.spawns["Spawn1"].spawnCreep(
-        [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY],
+        [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY],
         newName,
         {
           memory: { role: "upgrader" },
@@ -147,9 +148,10 @@ module.exports.loop = function () {
       const newName = Game.time + "_" + "Builder" + builders.length
       console.log("Spawning new builder: " + newName)
       // [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY] // 500
+      // [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY] // 550
       // [WORK, MOVE, MOVE, CARRY] // 300
       Game.spawns["Spawn1"].spawnCreep(
-        [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY],
+        [WORK, WORK, WORK, MOVE, CARRY, CARRY, CARRY, CARRY],
         newName,
         {
           memory: { role: "builder" },
