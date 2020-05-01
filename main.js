@@ -110,17 +110,11 @@ module.exports.loop = function () {
         newName,
         { memory: { role: "fetcher" } }
       )
-    } else if (miners.length < 10) {
+    } else if (miners.length < 20) {
       const newName = Game.time + "_" + "Miner" + miners.length
       console.log("Spawning new miner: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, {
         memory: { role: "miner" },
-      })
-    } else if (defenders.length < 10) {
-      const newName = Game.time + "_" + "Defender" + defenders.length
-      console.log("Spawning new defender: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, {
-        memory: { role: "defender" },
       })
     } else if (upgraders.length < 5) {
       const newName = Game.time + "_" + "Upgrader" + upgraders.length
@@ -129,13 +123,19 @@ module.exports.loop = function () {
         memory: { role: "upgrader" },
       })
     } else if (
-      builders.length < 3 &&
+      builders.length < 5 &&
       Game.spawns["Spawn1"].room.find(FIND_MY_CONSTRUCTION_SITES).length > 0
     ) {
       const newName = Game.time + "_" + "Builder" + builders.length
       console.log("Spawning new builder: " + newName)
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "builder" },
+      })
+    } else if (defenders.length < 10) {
+      const newName = Game.time + "_" + "Defender" + defenders.length
+      console.log("Spawning new defender: " + newName)
+      Game.spawns["Spawn1"].spawnCreep([ATTACK, ATTACK, MOVE, MOVE], newName, {
+        memory: { role: "defender" },
       })
     } else {
       const newName = Game.time + "_" + "Miner" + miners.length
