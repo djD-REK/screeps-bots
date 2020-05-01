@@ -8,6 +8,7 @@ function actionExplore(thisCreep) {
     typeof thisCreep.memory.destination != "string"
   ) {
     thisCreep.say("🚶 EXPLORE")
+    console.log(JSON.stringify(Game.map.describeExits(thisCreep.room)))
     // const exitPositions = thisCreep.room.find(FIND_EXIT)
     const exitRoomNameArray = Array.from(
       Object.values(Game.map.describeExits(thisCreep.room))
@@ -26,8 +27,6 @@ function actionExplore(thisCreep) {
     // Select an exit to move to at random
     const destinationRoom =
       exitRoomNameArray[Math.floor(exitRoomNameArray.length * Math.random())]
-
-    console.log(destinationRoom)
 
     thisCreep.memory.destination = String(RoomPosition(25, 25, destinationRoom))
 
