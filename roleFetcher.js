@@ -60,6 +60,7 @@ var roleFetcher = {
 
       const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
+          console.log(`${resource.amount} vs. ${carryingCapacity}`)
           return resource.amount >= 1 * carryingCapacity
         },
       })
