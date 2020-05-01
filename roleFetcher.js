@@ -2,49 +2,60 @@ var actionDeposit = require("actionDeposit")
 var actionExplore = require("actionExplore")
 
 var roleFetcher = {
-  /** @param {Creep} creep **/
-  run: function (creep) {
+  /** @param {Creep} thisCreep **/
+  run: function (thisCreep) {
     // Top priority: Dropped resources
-    const droppedResources = creep.room.find(FIND_DROPPED_RESOURCES, {
+    const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
       filter: function (resource) {
-        return resource.amount > 100
+        return (
+          resource.amount >
+          thisCreep.body.filter(
+            (bodyPartObject) => bodyPartObject.type === CARRY
+          ).length *
+            CARRY_CAPACITY
+        )
       },
     })
 
-    if (droppedResources.length && creep.store.getFreeCapacity() > 0) {
-      if (creep.memory.droppedResourceNumber == null) {
+    if (droppedResources.length && thisCreep.store.getFreeCapacity() > 0) {
+      if (thisCreep.memory.droppedResourceNumber == null) {
         // Randomize current droppedResource assignment
-        creep.memory.droppedResourceNumber = Math.floor(
+        thisCreep.memory.droppedResourceNumber = Math.floor(
           Math.random() * droppedResources.length
         )
-        creep.say("🔄 PICK UP")
+        thisCreep.say("🔄 PICK UP")
         console.log(
-          `${creep.name} assigned to @droppedResources[${creep.memory.droppedResourceNumber}]`
+          `${thisCreep.name} assigned to @droppedResources[${thisCreep.memory.droppedResourceNumber}]`
         )
       }
       if (
-        creep.pickup(droppedResources[creep.memory.droppedResourceNumber]) ==
-        ERR_NOT_IN_RANGE
+        thisCreep.pickup(
+          droppedResources[thisCreep.memory.droppedResourceNumber]
+        ) == ERR_NOT_IN_RANGE
       ) {
-        creep.moveTo(droppedResources[creep.memory.droppedResourceNumber], {
-          visualizePathStyle: { stroke: "#ffaa00" },
-        })
+        thisCreep.moveTo(
+          droppedResources[thisCreep.memory.droppedResourceNumber],
+          {
+            visualizePathStyle: { stroke: "#ffaa00" },
+          }
+        )
       }
       if (
-        creep.pickup(droppedResources[creep.memory.droppedResourceNumber]) ==
-        ERR_INVALID_TARGET
+        thisCreep.pickup(
+          droppedResources[thisCreep.memory.droppedResourceNumber]
+        ) == ERR_INVALID_TARGET
       ) {
         // Maybe we already picked it up, or someone else did
-        creep.memory.droppedResourceNumber = null
+        thisCreep.memory.droppedResourceNumber = null
       }
     } else {
-      creep.memory.droppedResourceNumber = null
-      if (creep.store.getUsedCapacity() > 0) {
+      thisCreep.memory.droppedResourceNumber = null
+      if (thisCreep.store.getUsedCapacity() > 0) {
         // Drop off resources
-        actionDeposit(creep)
+        actionDeposit(thisCreep)
       } else {
         // Explore
-        actionExplore(creep)
+        actionExplore(thisCreep)
       }
     }
   },
