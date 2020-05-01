@@ -35,7 +35,6 @@ const convertRoomPositionStringBackToRoomPositionObject = (
   const roomName = resultOfRegExp.groups.room // e.g. E56N8
   const xCoordinate = Number(resultOfRegExp.groups.x) // e.g. 23
   const yCoordinate = Number(resultOfRegExp.groups.y) // e.g. 26
-  console.log(`${roomName} ${xCoordinate} ${yCoordinate}`)
   return new RoomPosition(xCoordinate, yCoordinate, roomName) // e.g. new RoomPosition(23, 26, "E56N8")
 }
 
