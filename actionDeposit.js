@@ -51,7 +51,7 @@ function actionDeposit(thisCreep) {
   } else {
     // TODO make dynamic instead of always going home
     // actionExplore()
-    if (thisCreep.room === Game.spawns["Spawn1"].pos) {
+    if (thisCreep.room === Game.spawns["Spawn1"].room) {
       console.log("Drop it! There are 0 available targets in the home room.")
       thisCreep.say("DROP IT!")
       // There's an issue, so let's drop our resources and mosey on
