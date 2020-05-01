@@ -116,7 +116,7 @@ module.exports.loop = function () {
         newName,
         { memory: { role: "fetcher" } }
       )
-    } else if (upgraders.length < miners.length / 5) {
+    } else if (upgraders.length < Math.floor(miners.length / 5)) {
       const newName = Game.time + "_" + "Upgrader" + upgraders.length
       console.log("Spawning new upgrader: " + newName)
       // [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY], // 500
@@ -130,7 +130,7 @@ module.exports.loop = function () {
         }
       )
     } else if (
-      builders.length < miners.length / 5 &&
+      builders.length < Math.floor(Math.floor(miners.length / 5)) &&
       Game.spawns["Spawn1"].room.find(FIND_MY_CONSTRUCTION_SITES).length > 0
     ) {
       const newName = Game.time + "_" + "Builder" + builders.length
@@ -145,7 +145,7 @@ module.exports.loop = function () {
           memory: { role: "builder" },
         }
       )
-    } else if (defenders.length < miners.length / 2) {
+    } else if (defenders.length < Math.floor(miners.length / 2)) {
       const newName = Game.time + "_" + "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
       // [ATTACK, ATTACK, MOVE, MOVE], // 260
