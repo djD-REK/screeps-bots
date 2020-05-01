@@ -13,6 +13,7 @@ const actionFillUp = function (thisCreep) {
       )
     },
   })
+  console.log(storageSites)
   if (storageSites.length > 0) {
     if (thisCreep.memory.storageSiteNumber == null) {
       thisCreep.memory.storageSiteNumber = Math.floor(
