@@ -157,8 +157,16 @@ const roleMiner = {
         const sourceObjectAtObjective = sourcePosition.findClosestByRange(
           FIND_SOURCES_ACTIVE
         )
+        if (
+          thisCreep.harvest(sourceObjectAtObjective) ===
+          ERR_NOT_ENOUGH_RESOURCES
+        ) {
+          // Think about it if our mining site is empty
+          thisCreep.memory.mission = "THINK"
+        }
         if (thisCreep.harvest(sourceObjectAtObjective) === ERR_NOT_IN_RANGE) {
           if (destinationPosition.lookFor(LOOK_CREEPS).length > 0) {
+            // Think about it if our mining site is occupied
             thisCreep.memory.mission = "THINK"
           }
           thisCreep.moveTo(destinationPosition, {
