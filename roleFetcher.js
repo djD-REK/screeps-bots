@@ -43,15 +43,14 @@ var roleFetcher = {
           Game.creeps[creepName].memory.droppedResourceNumber
         ]++
       })
-      console.log(droppedResources.length)
-      console.log(...countsOfAssignments)
       countsOfAssignments.forEach((count, index) => {
         if (count > 3) {
+          console.log(
+            `Game.creeps[creepName] was feeling crowded, so is going to look around.`
+          )
           droppedResources.splice(index, 1)
-          console.log(`Removed index ${index}`)
         }
       })
-      console.log(droppedResources.length)
 
       if (droppedResources.length) {
         if (thisCreep.memory.droppedResourceNumber == null) {
