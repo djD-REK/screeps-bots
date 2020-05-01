@@ -19,11 +19,10 @@ var roleFetcher = {
       // And go to to drop off resources
       actionDeposit(thisCreep)
     } else {
-      if (thisCreep.memory.mission !== "Exploring") {
-        // We can clear our marker of which structure we were filling
-        thisCreep.memory.depositTargetNumber = null
+      // We can clear our marker of which structure we were filling
+      thisCreep.memory.depositTargetNumber = null
 
-        /* TODO: Fix fetcher competition logic, based e.g. on miner logic
+      /* TODO: Fix fetcher competition logic, based e.g. on miner logic
       // Get all the fetchers who have assigned objectives
 
       const fetcherDroppedTargets = fetchers.map(
@@ -43,54 +42,53 @@ var roleFetcher = {
       // TODO: assign a number of fetchers dynamically?
       */
 
-        const fetchers = Object.keys(Game.creeps).filter(
-          (creepName) =>
-            Game.creeps[creepName].memory.role === "fetcher" &&
-            Game.creeps[creepName].memory.objective != undefined &&
-            Game.creeps[creepName].room === thisCreep.room &&
-            creepName !== thisCreep.Name
-        )
-        // Count other fetchers in the same room
-        const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
-          filter: function (resource) {
-            return resource.amount >= fetchers.length * carryingCapacity
-          },
-        })
-        // Only target resources that have at least that many times carryingCapacity
+      const fetchers = Object.keys(Game.creeps).filter(
+        (creepName) =>
+          Game.creeps[creepName].memory.role === "fetcher" &&
+          Game.creeps[creepName].memory.objective != undefined &&
+          Game.creeps[creepName].room === thisCreep.room &&
+          creepName !== thisCreep.Name
+      )
+      // Count other fetchers in the same room
+      const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+        filter: function (resource) {
+          return resource.amount >= fetchers.length * carryingCapacity
+        },
+      })
+      // Only target resources that have at least that many times carryingCapacity
 
-        if (droppedResources.length) {
-          if (thisCreep.memory.droppedResourceNumber == null) {
-            // Randomize current droppedResource assignment
-            thisCreep.memory.droppedResourceNumber = Math.floor(
-              Math.random() * droppedResources.length
-            )
-            // TODO Set objective: thisCreep.memory.objective = String(              droppedResources[thisCreep.memory.droppedResourceNumber].pos            )
-            thisCreep.say("🔄 PICK UP")
-            console.log(
-              `${thisCreep.name} assigned to @droppedResources[${thisCreep.memory.droppedResourceNumber}]`
-            )
-          }
-          if (
-            thisCreep.pickup(
-              droppedResources[thisCreep.memory.droppedResourceNumber]
-            ) == ERR_NOT_IN_RANGE
-          ) {
-            thisCreep.moveTo(
-              droppedResources[thisCreep.memory.droppedResourceNumber],
-              {
-                visualizePathStyle: { stroke: "#ffaa00" },
-              }
-            )
-          }
-          if (
-            thisCreep.pickup(
-              droppedResources[thisCreep.memory.droppedResourceNumber]
-            ) == ERR_INVALID_TARGET
-          ) {
-            // Maybe we already picked it up, or someone else did
-            thisCreep.memory.droppedResourceNumber = null
-            thisCreep.memory.objective = null
-          }
+      if (droppedResources.length) {
+        if (thisCreep.memory.droppedResourceNumber == null) {
+          // Randomize current droppedResource assignment
+          thisCreep.memory.droppedResourceNumber = Math.floor(
+            Math.random() * droppedResources.length
+          )
+          // TODO Set objective: thisCreep.memory.objective = String(              droppedResources[thisCreep.memory.droppedResourceNumber].pos            )
+          thisCreep.say("🔄 PICK UP")
+          console.log(
+            `${thisCreep.name} assigned to @droppedResources[${thisCreep.memory.droppedResourceNumber}]`
+          )
+        }
+        if (
+          thisCreep.pickup(
+            droppedResources[thisCreep.memory.droppedResourceNumber]
+          ) == ERR_NOT_IN_RANGE
+        ) {
+          thisCreep.moveTo(
+            droppedResources[thisCreep.memory.droppedResourceNumber],
+            {
+              visualizePathStyle: { stroke: "#ffaa00" },
+            }
+          )
+        }
+        if (
+          thisCreep.pickup(
+            droppedResources[thisCreep.memory.droppedResourceNumber]
+          ) == ERR_INVALID_TARGET
+        ) {
+          // Maybe we already picked it up, or someone else did
+          thisCreep.memory.droppedResourceNumber = null
+          thisCreep.memory.objective = null
         }
       } else {
         // Explore
