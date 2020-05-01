@@ -163,8 +163,8 @@ module.exports.loop = function () {
       //  [WORK, WORK, MOVE], // 250
       // [WORK, WORK, WORK, WORK, MOVE, MOVE], // 500
       Game.spawns["Spawn1"].spawnCreep(
-        newName,
         [WORK, WORK, MOVE, MOVE], // 300
+        newName,
         {
           memory: { role: "miner" },
         }
