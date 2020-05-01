@@ -157,6 +157,11 @@ const roleMiner = {
         const sourceObjectAtObjective = sourcePosition.findClosestByRange(
           FIND_SOURCES_ACTIVE
         )
+        console.log(
+          thisCreep.harvest(sourceObjectAtObjective) +
+            "" +
+            thisCreep.memory.objective
+        )
         if (
           thisCreep.harvest(sourceObjectAtObjective) ===
           ERR_NOT_ENOUGH_RESOURCES
