@@ -21,27 +21,45 @@ function actionDeposit(thisCreep) {
       thisCreep.transfer(
         targets[thisCreep.memory.depositTargetNumber],
         RESOURCE_ENERGY
-      ) === ERR_NOT_IN_RANGE
-    ) {
-      const result = thisCreep.moveTo(
+      ) < 0 &&
+      thisCreep.transfer(
         targets[thisCreep.memory.depositTargetNumber],
-        {
-          visualizePathStyle: { stroke: "#ffffff" },
-        }
+        RESOURCE_ENERGY
+      ) !== ERR_NOT_IN_RANGE
+    ) {
+      console.log(
+        "Drop it!" +
+          thisCreep.transfer(
+            targets[thisCreep.memory.depositTargetNumber],
+            RESOURCE_ENERGY
+          )
       )
-      if (result != OK)
-        console.log(
-          "Drop it! with moveTo error " + result + " on " + thisCreep.name
-        )
       // There's an issue, so let's drop our resources and mosey on
       thisCreep.drop(RESOURCE_ENERGY)
+    }
+    if (
+      thisCreep.transfer(
+        targets[thisCreep.memory.depositTargetNumber],
+        RESOURCE_ENERGY
+      ) === ERR_NOT_IN_RANGE
+    ) {
+      thisCreep.moveTo(targets[thisCreep.memory.depositTargetNumber], {
+        visualizePathStyle: { stroke: "#ffffff" },
+      })
     }
   } else {
     // TODO make dynamic instead of always going home
     // actionExplore()
-    thisCreep.moveTo(Game.spawns["Spawn1"].pos, {
-      visualizePathStyle: { stroke: "#ffffff" },
-    })
+    if (thisCreep.room === Game.spawns["Spawn1"].pos) {
+      console.log("Drop it! There are 0 available targets in the home room.")
+      thisCreep.say("DROP IT!")
+      // There's an issue, so let's drop our resources and mosey on
+      thisCreep.drop(RESOURCE_ENERGY)
+    } else {
+      thisCreep.moveTo(Game.spawns["Spawn1"].pos, {
+        visualizePathStyle: { stroke: "#ffffff" },
+      })
+    }
   }
 }
 
