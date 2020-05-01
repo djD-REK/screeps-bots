@@ -2,7 +2,8 @@
 
 function actionDeposit(thisCreep) {
   thisCreep.say("🚶 depositing")
-  var targets = thisCreep.room.find(FIND_MY_STRUCTURES, {
+  var targets = thisCreep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+    //var targets = thisCreep.room.find(FIND_MY_STRUCTURES, {
     // var targets = Game.spawns["Spawn1"].room.find(FIND_MY_STRUCTURES, {
     filter: (structure) => {
       return (
