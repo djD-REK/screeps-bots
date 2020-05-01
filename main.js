@@ -102,7 +102,7 @@ module.exports.loop = function () {
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "harvester" },
       })
-    } else if (fetchers.length < miners.length * 2) {
+    } else if (fetchers.length < miners.length) {
       const newName = Game.time + "_" + "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
       Game.spawns["Spawn1"].spawnCreep(
