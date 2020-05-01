@@ -45,7 +45,7 @@ var roleFetcher = {
       })
       console.log(...countsOfAssignments)
       countsOfAssignments.forEach((count, index) => {
-        if (countsOfAssignments > 3) {
+        if (count > 3) {
           droppedResources.splice(index, 1)
           console.log(`Removed index ${index}`)
         }
