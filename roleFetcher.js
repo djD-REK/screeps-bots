@@ -50,6 +50,9 @@ var roleFetcher = {
             Game.creeps[creepName].room === thisCreep.room &&
             creepName !== thisCreep.Name
         )
+        console.log(
+          `There are ${fetchers.length} other fetchers in ${thisCreep.room}`
+        )
         // Count other fetchers in the same room
         const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
           filter: function (resource) {
