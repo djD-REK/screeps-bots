@@ -21,7 +21,9 @@ function actionExplore(thisCreep) {
     thisCreep.moveTo(25, 25)
   } else {
     // Move toward the assigned exit tile
-    thisCreep.moveTo(thisCreep.memory.target.x, thisCreep.memory.target.y)
+    thisCreep.moveTo(thisCreep.memory.target.x, thisCreep.memory.target.y, {
+      visualizePathStyle: { stroke: "#ffaa00" },
+    })
   }
 }
 
