@@ -102,13 +102,7 @@ module.exports.loop = function () {
     )
     console.log("Miners: " + miners.length)
 
-    if (harvesters.length < 0) {
-      const newName = Game.time + "_" + "Harvester" + harvesters.length
-      console.log("Spawning new harvester: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
-        memory: { role: "harvester" },
-      })
-    } else if (fetchers.length < miners.length) {
+    if (fetchers.length < miners.length) {
       const newName = Game.time + "_" + "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
       //        [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY], // 300
@@ -117,19 +111,7 @@ module.exports.loop = function () {
         newName,
         { memory: { role: "fetcher" } }
       )
-    } else if (miners.length < 20) {
-      const newName = Game.time + "_" + "Miner" + miners.length
-      console.log("Spawning new miner: " + newName)
-      // [WORK, WORK, MOVE, MOVE] // 300
-      // [WORK, WORK, WORK, WORK, MOVE, MOVE] // 500
-      Game.spawns["Spawn1"].spawnCreep(
-        [WORK, WORK, WORK, WORK, MOVE, MOVE],
-        newName,
-        {
-          memory: { role: "miner" },
-        }
-      )
-    } else if (upgraders.length < 5) {
+    } else if (upgraders.length < miners.length / 4) {
       const newName = Game.time + "_" + "Upgrader" + upgraders.length
       console.log("Spawning new upgrader: " + newName)
       // [WORK, WORK, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY] // 500
@@ -143,7 +125,7 @@ module.exports.loop = function () {
         }
       )
     } else if (
-      builders.length < 5 &&
+      builders.length < miners.length / 4 &&
       Game.spawns["Spawn1"].room.find(FIND_MY_CONSTRUCTION_SITES).length > 0
     ) {
       const newName = Game.time + "_" + "Builder" + builders.length
@@ -158,7 +140,7 @@ module.exports.loop = function () {
           memory: { role: "builder" },
         }
       )
-    } else if (defenders.length < 20) {
+    } else if (defenders.length < miners.length / 2) {
       const newName = Game.time + "_" + "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
       // [ATTACK, ATTACK, MOVE, MOVE] // 260
