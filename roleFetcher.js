@@ -37,7 +37,7 @@ var roleFetcher = {
           Game.creeps[creepName].room === thisCreep.room &&
           creepName !== thisCreep.Name
       )
-      const countsOfAssignments = new Array(15).fill(0)
+      const countsOfAssignments = new Array(droppedResources.length).fill(0)
       fetchers.forEach((creepName) => {
         countsOfAssignments[
           Game.creeps[creepName].memory.droppedResourceNumber
