@@ -2,7 +2,7 @@
 
 function actionDeposit(thisCreep) {
   thisCreep.say("🚶 depositing")
-  const targetDropOffSite = thisCreep.pos.findClosestByRange(
+  const targetDropOffSite = thisCreep.pos.findClosestByPath(
     FIND_MY_STRUCTURES,
     {
       //var targets = thisCreep.room.find(FIND_MY_STRUCTURES, {
