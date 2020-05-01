@@ -174,7 +174,9 @@ module.exports.loop = function () {
     Game.spawns["Spawn1"].room.visual.text(
       "🛠️" +
         spawningCreep.memory.role +
-        +Math.floor((100 * spawnObject.remainingTime) / spawnObject.needTime) +
+        +Math.floor(
+          100 - (100 * spawnObject.remainingTime) / spawnObject.needTime
+        ) +
         "%",
       Game.spawns["Spawn1"].pos.x + 1,
       Game.spawns["Spawn1"].pos.y,
