@@ -5,9 +5,10 @@ function actionExplore(thisCreep) {
     thisCreep.say("🚶 EXPLORE")
     const exits = thisCreep.room.find(FIND_EXIT)
     // Select an exit to move to at random
+    // TODO: Fix that target here is a RoomPosition object, not a string
     thisCreep.memory.target = exits[Math.floor(exits.length * Math.random())]
     console.log(
-      `${thisCreep.name} assigned mission to EXPLORE to Target (${thisCreep.memory.target})`
+      `${thisCreep.name} assigned mission to EXPLORE to Target ${thisCreep.memory.target}`
     )
   }
   if (
