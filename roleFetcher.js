@@ -20,15 +20,15 @@ var roleFetcher = {
         thisCreep.memory.depositTargetNumber = null
         thisCreep.memory.mission === "PICK UP"
       }
-    }
-    if (thisCreep.store.getUsedCapacity() >= carryingCapacity) {
-      // We can clear our marker of which resource we were gathering
-      thisCreep.memory.droppedResourceNumber = null
-      thisCreep.memory.objective = null
-      // And go to to drop off resources
-      thisCreep.memory.mission = "DEPOSIT"
     } else {
-      /* TODO: Fix fetcher competition logic, based e.g. on miner logic
+      if (thisCreep.store.getUsedCapacity() >= carryingCapacity) {
+        // We can clear our marker of which resource we were gathering
+        thisCreep.memory.droppedResourceNumber = null
+        thisCreep.memory.objective = null
+        // And go to to drop off resources
+        thisCreep.memory.mission = "DEPOSIT"
+      } else {
+        /* TODO: Fix fetcher competition logic, based e.g. on miner logic
       // Get all the fetchers who have assigned objectives
 
       const fetcherDroppedTargets = fetchers.map(
@@ -48,73 +48,74 @@ var roleFetcher = {
       // TODO: assign a number of fetchers dynamically?
       */
 
-      const fetchers = Object.keys(Game.creeps).filter(
-        (creepName) =>
-          Game.creeps[creepName].memory.role === "fetcher" &&
-          Game.creeps[creepName].room === thisCreep.room &&
-          creepName !== thisCreep.name
-      )
-      // Count other fetchers in the same room
-      const targetResourceAmount = (fetchers.length * carryingCapacity) / 3
-      // console.log(
-      //   `${thisCreep.name} is seeking energy drops >= ${targetResourceAmount} in ${thisCreep.room}`
-      // )
-      const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
-        filter: function (resource) {
-          return resource.amount >= targetResourceAmount
-        },
-      })
-      // Only target resources that have at least that many times carryingCapacity
+        const fetchers = Object.keys(Game.creeps).filter(
+          (creepName) =>
+            Game.creeps[creepName].memory.role === "fetcher" &&
+            Game.creeps[creepName].room === thisCreep.room &&
+            creepName !== thisCreep.name
+        )
+        // Count other fetchers in the same room
+        const targetResourceAmount = (fetchers.length * carryingCapacity) / 3
+        // console.log(
+        //   `${thisCreep.name} is seeking energy drops >= ${targetResourceAmount} in ${thisCreep.room}`
+        // )
+        const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+          filter: function (resource) {
+            return resource.amount >= targetResourceAmount
+          },
+        })
+        // Only target resources that have at least that many times carryingCapacity
 
-      /* const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+        /* const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
           return resource.amount >= 1 * carryingCapacity
         },
       })
       // Target 1x carryingCapacity, i.e. big loads only */
 
-      if (droppedResources.length) {
-        if (thisCreep.memory.droppedResourceNumber == null) {
-          // Randomize current droppedResource assignment
-          thisCreep.memory.droppedResourceNumber = Math.floor(
-            Math.random() * droppedResources.length
-          )
-          // TODO Set objective: thisCreep.memory.objective = String(              droppedResources[thisCreep.memory.droppedResourceNumber].pos            )
-          thisCreep.say("🔄 PICK UP")
-          console.log(
-            `${thisCreep.name} assigned to @droppedResources[${thisCreep.memory.droppedResourceNumber}]`
-          )
-        }
-        if (
-          thisCreep.pickup(
-            droppedResources[thisCreep.memory.droppedResourceNumber]
-          ) == ERR_NOT_IN_RANGE
-        ) {
-          thisCreep.moveTo(
-            droppedResources[thisCreep.memory.droppedResourceNumber],
-            {
-              visualizePathStyle: { stroke: "#ffaa00" },
-            }
-          )
-        }
-        if (
-          thisCreep.pickup(
-            droppedResources[thisCreep.memory.droppedResourceNumber]
-          ) == ERR_INVALID_TARGET
-        ) {
-          // Maybe we already picked it up, or someone else did
-          thisCreep.memory.droppedResourceNumber = null
-          thisCreep.memory.objective = null
-        }
-      } else {
-        // Explore
-        //        thisCreep.memory.mission = "Exploring"
-        actionExplore(thisCreep)
-        /*if (Math.random() < 1 / 50) {
+        if (droppedResources.length) {
+          if (thisCreep.memory.droppedResourceNumber == null) {
+            // Randomize current droppedResource assignment
+            thisCreep.memory.droppedResourceNumber = Math.floor(
+              Math.random() * droppedResources.length
+            )
+            // TODO Set objective: thisCreep.memory.objective = String(              droppedResources[thisCreep.memory.droppedResourceNumber].pos            )
+            thisCreep.say("🔄 PICK UP")
+            console.log(
+              `${thisCreep.name} assigned to @droppedResources[${thisCreep.memory.droppedResourceNumber}]`
+            )
+          }
+          if (
+            thisCreep.pickup(
+              droppedResources[thisCreep.memory.droppedResourceNumber]
+            ) == ERR_NOT_IN_RANGE
+          ) {
+            thisCreep.moveTo(
+              droppedResources[thisCreep.memory.droppedResourceNumber],
+              {
+                visualizePathStyle: { stroke: "#ffaa00" },
+              }
+            )
+          }
+          if (
+            thisCreep.pickup(
+              droppedResources[thisCreep.memory.droppedResourceNumber]
+            ) == ERR_INVALID_TARGET
+          ) {
+            // Maybe we already picked it up, or someone else did
+            thisCreep.memory.droppedResourceNumber = null
+            thisCreep.memory.objective = null
+          }
+        } else {
+          // Explore
+          //        thisCreep.memory.mission = "Exploring"
+          actionExplore(thisCreep)
+          /*if (Math.random() < 1 / 50) {
           // 1 in 50
           thisCreep.memory.mission = null
           console.log(`${thisCreep.name} is going to check for resources`)
         }*/
+        }
       }
     }
   },
