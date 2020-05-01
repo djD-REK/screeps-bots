@@ -25,12 +25,7 @@ var roleFetcher = {
 
         /* TODO: Fix fetcher competition logic, based e.g. on miner logic
       // Get all the fetchers who have assigned objectives
-      const fetchers = Object.keys(Game.creeps).filter(
-        (creepName) =>
-          Game.creeps[creepName].memory.role === "fetcher" &&
-          Game.creeps[creepName].memory.objective != undefined &&
-          creepName !== thisCreep.Name
-      )
+
       const fetcherDroppedTargets = fetchers.map(
         (creepName) => Game.creeps[creepName].memory.objective
       )
@@ -48,11 +43,20 @@ var roleFetcher = {
       // TODO: assign a number of fetchers dynamically?
       */
 
+        const fetchers = Object.keys(Game.creeps).filter(
+          (creepName) =>
+            Game.creeps[creepName].memory.role === "fetcher" &&
+            Game.creeps[creepName].memory.objective != undefined &&
+            Game.creeps[creepName].room === thisCreep.room &&
+            creepName !== thisCreep.Name
+        )
+        // Count other fetchers in the same room
         const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
           filter: function (resource) {
-            return resource.amount >= 1 * carryingCapacity
+            return resource.amount >= fetchers.length * carryingCapacity
           },
         })
+        // Only target resources that have at least that many times carryingCapacity
 
         if (droppedResources.length) {
           if (thisCreep.memory.droppedResourceNumber == null) {
@@ -92,13 +96,13 @@ var roleFetcher = {
         }
       } else {
         // Explore
-        thisCreep.memory.mission = "Exploring"
+        //        thisCreep.memory.mission = "Exploring"
         actionExplore(thisCreep)
-        if (Math.random() < 1 / 50) {
+        /*if (Math.random() < 1 / 50) {
           // 1 in 50
           thisCreep.memory.mission = null
           console.log(`${thisCreep.name} is going to check for resources`)
-        }
+        }*/
       }
     }
   },
