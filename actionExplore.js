@@ -28,8 +28,6 @@ function actionExplore(thisCreep) {
     const destinationRoom =
       exitRoomNameArray[Math.floor(exitRoomNameArray.length * Math.random())]
 
-    console.log(`${thisCreep.name} selected destination ${destinationRoom}`)
-
     thisCreep.memory.destination = String(
       new RoomPosition(25, 25, destinationRoom)
     )
@@ -50,7 +48,6 @@ function actionExplore(thisCreep) {
     // Move off the border by 1 step
     thisCreep.moveTo(25, 25)
   } else {
-    console.log(thisCreep.memory.destination)
     // Move toward the assigned exit tile
     thisCreep.moveTo(
       convertRoomPositionStringBackToRoomPositionObject(
