@@ -102,7 +102,7 @@ module.exports.loop = function () {
     )
     console.log("Miners: " + miners.length)
 
-    if (fetchers.length < miners.length) {
+    if (fetchers.length < miners.length * 2) {
       const newName = Game.time + "_" + "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
       //        [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY], // 300
