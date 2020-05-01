@@ -102,13 +102,7 @@ module.exports.loop = function () {
       Game.spawns["Spawn1"].spawnCreep([WORK, MOVE, MOVE, CARRY], newName, {
         memory: { role: "harvester" },
       })
-    } else if (miners.length < 10) {
-      const newName = Game.time + "_" + "Miner" + miners.length
-      console.log("Spawning new miner: " + newName)
-      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, {
-        memory: { role: "miner" },
-      })
-    } else if (fetchers.length < miners.length * 2) {
+    } else if (fetchers.length < miners.length) {
       const newName = Game.time + "_" + "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
       Game.spawns["Spawn1"].spawnCreep(
@@ -116,6 +110,12 @@ module.exports.loop = function () {
         newName,
         { memory: { role: "fetcher" } }
       )
+    } else if (miners.length < 10) {
+      const newName = Game.time + "_" + "Miner" + miners.length
+      console.log("Spawning new miner: " + newName)
+      Game.spawns["Spawn1"].spawnCreep([WORK, WORK, MOVE], newName, {
+        memory: { role: "miner" },
+      })
     } else if (defenders.length < 10) {
       const newName = Game.time + "_" + "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
