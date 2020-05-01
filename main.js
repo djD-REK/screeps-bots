@@ -112,19 +112,7 @@ module.exports.loop = function () {
       console.log("Spawning new fetcher: " + newName)
       Game.spawns["Spawn1"].spawnCreep(
         //        [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY], // 300
-        [
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-        ], // 550
+        [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY], // 500
         newName,
         { memory: { role: "fetcher" } }
       )
