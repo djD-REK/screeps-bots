@@ -50,9 +50,7 @@ var roleFetcher = {
       )
       // Count other fetchers in the same room
       const targetResourceAmount = (fetchers.length * carryingCapacity) / 2
-      console.log(
-        `${thisCreep.name} is seeking energy drops >= ${targetResourceAmount} in room ${thisCreep.room}`
-      )
+      //console.log(        `${thisCreep.name} is seeking energy drops >= ${targetResourceAmount} in ${thisCreep.room}`)
       const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
           return resource.amount >= targetResourceAmount
