@@ -35,7 +35,11 @@ const actionFillUp = function (thisCreep) {
       thisCreep.withdraw(
         storageSites[thisCreep.memory.storageSiteNumber],
         RESOURCE_ENERGY
-      ) != OK
+      ) != OK &&
+      thisCreep.withdraw(
+        storageSites[thisCreep.memory.storageSiteNumber],
+        RESOURCE_ENERGY
+      ) != ERR_BUSY // still being spawned
     ) {
       // There was a different error
       console.log(
