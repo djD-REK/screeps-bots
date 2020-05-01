@@ -11,8 +11,6 @@ function actionExplore(thisCreep) {
     thisCreep.memory.target = String(
       exits[Math.floor(exits.length * Math.random())].pos
     )
-    console.log(exits[Math.floor(exits.length * Math.random())].pos)
-    console.log(exits[Math.floor(exits.length * Math.random())])
     console.log(
       `${thisCreep.name} assigned mission to EXPLORE to Target ${thisCreep.memory.target}`
     )
