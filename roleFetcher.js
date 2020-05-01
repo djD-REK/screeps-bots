@@ -45,7 +45,6 @@ var roleFetcher = {
       const fetchers = Object.keys(Game.creeps).filter(
         (creepName) =>
           Game.creeps[creepName].memory.role === "fetcher" &&
-          Game.creeps[creepName].memory.objective != undefined &&
           Game.creeps[creepName].room === thisCreep.room &&
           creepName !== thisCreep.name
       )
