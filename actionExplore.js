@@ -27,6 +27,8 @@ function actionExplore(thisCreep) {
     const destinationRoom =
       exitRoomNameArray[Math.floor(exitRoomNameArray.length * Math.random())]
 
+    console.log(destinationRoom)
+
     thisCreep.memory.destination = String(RoomPosition(25, 25, destinationRoom))
 
     console.log(
