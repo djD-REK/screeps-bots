@@ -61,7 +61,7 @@ module.exports.loop = function () {
   // Fetcher: (Dropped resources / Tanker)
   // [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY] = 300
   // Miner: (Static drop miner -- however also a remote miner, so needs MOVE)
-  // [MOVE, MOVE, WORK, WORK] = 250
+  // [MOVE, MOVE, WORK, WORK] = 300
 
   // Spawn new creeps if at least 300 energy (default max to a spawn)
   if (Game.spawns["Spawn1"].room.energyAvailable >= 300) {

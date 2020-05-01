@@ -21,10 +21,10 @@ var roleFetcher = {
       // We can clear our marker of which structure we were filling
       thisCreep.memory.depositTargetNumber = null
 
-      // Top priority: Dropped resources that have at least our carrying capacity
+      // Top priority: Dropped resources that have at least triple our carrying capacity
       const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
-          return resource.amount >= carryingCapacity
+          return resource.amount >= 3 * carryingCapacity
         },
       })
       if (droppedResources.length) {
