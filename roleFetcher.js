@@ -40,13 +40,16 @@ var roleFetcher = {
       const countsOfAssignments = Array.from(droppedResources.length + 1).map(
         () => 0
       )
+      console.log(JSON.stringify(fetchers))
       fetchers.forEach((creepName) => {
         countsOfAssignments[
           Game.creeps[creepName].memory.droppedResourceNumber
         ]++
       })
       countsOfAssignments.forEach((count, index) => {
-        if (countsOfAssignments > 3) droppedResources.splice(index, 1)
+        if (countsOfAssignments > 3) {
+          droppedResources.splice(index, 1)
+        }
       })
 
       if (droppedResources.length) {
