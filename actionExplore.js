@@ -7,7 +7,7 @@ function actionExplore(thisCreep) {
     // Select an exit to move to at random
     thisCreep.memory.target = exits[Math.floor(exits.length * Math.random())]
     console.log(
-      `${thisCreep.name} assigned mission to EXPLORE to Target (${thisCreep.memory.target.x},${thisCreep.memory.target.y})`
+      `${thisCreep.name} assigned mission to EXPLORE to Target (${thisCreep.memory.target.pos})`
     )
   }
   if (
