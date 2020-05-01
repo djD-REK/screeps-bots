@@ -24,7 +24,7 @@ var roleFetcher = {
       // Top priority: Dropped resources
       // - that have at least triple our carrying capacity
       // - that fewer than 3 fetchers are assigned to
-      let droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+      const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
           return resource.amount >= 3 * carryingCapacity
         },
@@ -37,9 +37,7 @@ var roleFetcher = {
           Game.creeps[creepName].room === thisCreep.room &&
           creepName !== thisCreep.Name
       )
-      const countsOfAssignments = Array.from(droppedResources.length + 1).map(
-        () => 0
-      )
+      const countsOfAssignments = new Array(15).fill(0)
       fetchers.forEach((creepName) => {
         countsOfAssignments[
           Game.creeps[creepName].memory.droppedResourceNumber
