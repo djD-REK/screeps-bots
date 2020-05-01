@@ -145,7 +145,7 @@ module.exports.loop = function () {
           memory: { role: "builder" },
         }
       )
-    } else if (defenders.length < Math.floor(miners.length / 2)) {
+    } else if (defenders.length < Math.floor(miners.length / 100)) {
       const newName = Game.time + "_" + "Defender" + defenders.length
       console.log("Spawning new defender: " + newName)
       // [ATTACK, ATTACK, MOVE, MOVE], // 260
