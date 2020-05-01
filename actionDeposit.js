@@ -50,12 +50,16 @@ function actionDeposit(thisCreep) {
   } else {
     // TODO make dynamic instead of always going home
     // actionExplore()
-    if (thisCreep.room === Game.spawns["Spawn1"].room) {
+    if (
+      thisCreep.room === Game.spawns["Spawn1"].room &&
+      thisCreep.pos.getRangeTo(Game.spawns["Spawn1"].pos) < 5
+    ) {
       console.log("Drop it! There are 0 available targets in the home room.")
       thisCreep.say("DROP IT!")
       // There's an issue, so let's drop our resources and mosey on
       thisCreep.drop(RESOURCE_ENERGY)
     } else {
+      // Move to within 5 tiles of the spawn. Then we drop it if everything is full
       thisCreep.moveTo(Game.spawns["Spawn1"].pos, {
         visualizePathStyle: { stroke: "#ffffff" },
       })
