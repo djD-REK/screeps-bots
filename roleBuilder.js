@@ -1,19 +1,16 @@
 const actionFillUp = require("actionFillUp")
+const actionExplore = require("actionExplore")
 
 const roleBuilder = {
   /** @param {Creep} thisCreep **/
   run: function (thisCreep) {
-    if (thisCreep.memory.building && thisCreep.store[RESOURCE_ENERGY] == 0) {
-      thisCreep.memory.building = false
+    if (thisCreep.store[RESOURCE_ENERGY] == 0) {
+      actionFillUp(thisCreep)
     }
-    if (!thisCreep.memory.building && thisCreep.store.getFreeCapacity() == 0) {
-      thisCreep.memory.building = true
-      thisCreep.say("🚧 build")
-    }
-
-    if (thisCreep.memory.building) {
+    if (thisCreep.store.getFreeCapacity() == 0) {
       const buildSites = thisCreep.room.find(FIND_MY_CONSTRUCTION_SITES)
       if (buildSites.length) {
+        thisCreep.say("🚧 build")
         if (thisCreep.memory.buildSiteNumber == null) {
           thisCreep.memory.buildSiteNumber = Math.floor(
             Math.random() * buildSites.length
@@ -42,9 +39,9 @@ const roleBuilder = {
           )
           thisCreep.memory.buildSiteNumber = null
         }
+      } else {
+        actionExplore(thisCreep)
       }
-    } else {
-      actionFillUp(thisCreep)
     }
   },
 }
