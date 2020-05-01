@@ -13,7 +13,6 @@ function actionDeposit(thisCreep) {
       )
     },
   })
-  console.log(`There are ${targets.length} targets to deposit`)
   if (targets.length > 0) {
     thisCreep.memory.depositTargetNumber = Math.floor(
       Math.random() * targets.length
