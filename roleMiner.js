@@ -28,9 +28,13 @@ const convertRoomPositionStringBackToRoomPositionObject = (
   // Using the constructor for to create a new RoomPosition object: constructor(x, y, roomName)
   // Output example: const pos = new RoomPosition(10, 25, 'sim');
   // --> from https://docs.screeps.com/api/#RoomPosition
-  const roomName = stringRoomPosition.substring(6, 11) // e.g. E56N8
-  const xCoordinate = Number(stringRoomPosition.substring(16, 18)) // e.g. 23
-  const yCoordinate = Number(stringRoomPosition.substring(19, 21)) // e.g. 26
+  const regExp = /room (?<room>\w{5}) pos (?<x>\d+),(?<y>\d+)/
+  // Board is a 50x50 grid with coordinates ranging from 0 to 49 i.e. 1-2 digits
+  const resultOfRegExp = regExp.exec(stringRoomPosition)
+
+  const roomName = resultOfRegExp.groups.room // e.g. E56N8
+  const xCoordinate = Number(resultOfRegExp.groups.x) // e.g. 23
+  const yCoordinate = Number(resultOfRegExp.groups.y) // e.g. 26
   console.log(`${roomName} ${xCoordinate} ${yCoordinate}`)
   return new RoomPosition(xCoordinate, yCoordinate, roomName) // e.g. new RoomPosition(23, 26, "E56N8")
 }
