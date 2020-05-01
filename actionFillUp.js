@@ -12,18 +12,18 @@ function actionFillUp(thisCreep) {
           structure.structureType == STRUCTURE_TOWER ||
           structure.structureType == STRUCTURE_CONTAINER ||
           structure.structureType == STRUCTURE_STORAGE) &&
-        structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0
+        structure.store.getUsedCapacity(RESOURCE_ENERGY) >= 50
       )
     },
   })
   if (targetFillUpSite != null) {
     // There is somewhere to fill up in the current room
-    console.log(
+    /*    console.log(
       `${thisCreep.name} attempting withdraw with result ${thisCreep.withdraw(
         targetFillUpSite,
         RESOURCE_ENERGY
       )}`
-    )
+    )*/
     if (
       thisCreep.withdraw(targetFillUpSite, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE
     ) {
