@@ -2,14 +2,15 @@
 
 function actionDeposit(thisCreep) {
   thisCreep.say("🚶 depositing")
-  var targets = thisCreep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-    //var targets = thisCreep.room.find(FIND_MY_STRUCTURES, {
+  // var targets = thisCreep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+  var targets = thisCreep.room.find(FIND_MY_STRUCTURES, {
     // var targets = Game.spawns["Spawn1"].room.find(FIND_MY_STRUCTURES, {
     filter: (structure) => {
       return (
         (structure.structureType == STRUCTURE_EXTENSION ||
           structure.structureType == STRUCTURE_SPAWN ||
-          structure.structureType == STRUCTURE_TOWER) &&
+          structure.structureType == STRUCTURE_TOWER ||
+          structure.structureType == STRUCTURE_CONTAINER) &&
         structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
       )
     },
