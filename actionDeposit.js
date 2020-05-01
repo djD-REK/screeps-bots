@@ -21,7 +21,27 @@ function actionDeposit(thisCreep) {
       thisCreep.transfer(
         targets[thisCreep.memory.depositTargetNumber],
         RESOURCE_ENERGY
-      ) == ERR_NOT_IN_RANGE
+      ) < 0 &&
+      thisCreep.transfer(
+        targets[thisCreep.memory.depositTargetNumber],
+        RESOURCE_ENERGY
+      ) !== ERR_NOT_IN_RANGE
+    ) {
+      console.log(
+        "Drop it!" +
+          thisCreep.transfer(
+            targets[thisCreep.memory.depositTargetNumber],
+            RESOURCE_ENERGY
+          )
+      )
+      // There's an issue, so let's drop our resources and mosey on
+      thisCreep.drop(RESOURCE_ENERGY)
+    }
+    if (
+      thisCreep.transfer(
+        targets[thisCreep.memory.depositTargetNumber],
+        RESOURCE_ENERGY
+      ) === ERR_NOT_IN_RANGE
     ) {
       thisCreep.moveTo(targets[thisCreep.memory.depositTargetNumber], {
         visualizePathStyle: { stroke: "#ffffff" },
