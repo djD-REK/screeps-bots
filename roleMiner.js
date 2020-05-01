@@ -133,6 +133,17 @@ const roleMiner = {
           thisCreep.memory.mission = "THINK"
         } else {
           // In the creep's memory, the objective and destination are stored as strings, so we have to convert them
+          if (thisCreep.memory.objective == undefined) {
+            console.log(
+              `Attempting to call convertRoomPositionStringBackToRoomPositionObject with value ${thisCreep.memory.objective}`
+            )
+          }
+          if (thisCreep.memory.destination == undefined) {
+            console.log(
+              `Attempting to call convertRoomPositionStringBackToRoomPositionObject with value ${thisCreep.memory.destination}`
+            )
+          }
+
           const sourcePosition = convertRoomPositionStringBackToRoomPositionObject(
             thisCreep.memory.objective
           )
