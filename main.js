@@ -64,7 +64,12 @@ module.exports.loop = function () {
   // [MOVE, MOVE, WORK, WORK] = 300
 
   // Spawn new creeps if at least 300 energy (default max to a spawn)
-  if (Game.spawns["Spawn1"].room.energyAvailable >= 300) {
+  // Initially Game.spawns["Spawn1"].room.energyCapacityAvailable === 300
+  // Currently Game.spawns["Spawn1"].room.energyCapacityAvailable === 550
+  if (
+    Game.spawns["Spawn1"].room.energyAvailable >=
+    Game.spawns["Spawn1"].room.energyCapacityAvailable
+  ) {
     const harvesters = _.filter(
       Game.creeps,
       (creep) => creep.memory.role == "harvester"
