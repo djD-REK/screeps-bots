@@ -39,6 +39,11 @@ function actionExplore(thisCreep) {
     console.log(
       `${thisCreep.name} assigned mission to EXPLORE to Destination ${thisCreep.memory.destination}`
     )
+    console.log(
+      `${convertRoomPositionStringBackToRoomPositionObject(
+        thisCreep.memory.destination
+      )}`
+    )
   }
   if (
     thisCreep.pos.x === 0 ||
