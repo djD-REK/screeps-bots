@@ -14,4 +14,4 @@ function convertRoomPositionStringBackToRoomPositionObject(stringRoomPosition) {
   return new RoomPosition(xCoordinate, yCoordinate, roomName) // e.g. new RoomPosition(23, 26, "E56N8")
 }
 
-module.export = convertRoomPositionStringBackToRoomPositionObject
+module.exports = convertRoomPositionStringBackToRoomPositionObject
