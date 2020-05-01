@@ -81,7 +81,7 @@ const assessSources = (thisCreep) => {
     (creepName) =>
       Game.creeps[creepName].memory.role === "miner" &&
       Game.creeps[creepName].memory.destination != undefined &&
-      creepName != thisCreep.Name
+      creepName !== thisCreep.Name
   )
   // Using Object.keys() and Array.prototype.filter:
   // const miners = Object.keys(Game.creeps).filter(
