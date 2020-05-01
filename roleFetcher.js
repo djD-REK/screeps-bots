@@ -22,6 +22,7 @@ var roleFetcher = {
       // We can clear our marker of which structure we were filling
       thisCreep.memory.depositTargetNumber = null
 
+      /* TODO: Fix fetcher competition logic, based e.g. on miner logic
       // Get all the fetchers who have assigned objectives
       const fetchers = Object.keys(Game.creeps).filter(
         (creepName) =>
@@ -44,6 +45,13 @@ var roleFetcher = {
         },
       })
       // TODO: assign a number of fetchers dynamically?
+      */
+
+      const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+        filter: function (resource) {
+          return resource.amount >= 1 * carryingCapacity
+        },
+      })
 
       if (droppedResources.length) {
         if (thisCreep.memory.droppedResourceNumber == null) {
