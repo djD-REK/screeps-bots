@@ -31,7 +31,11 @@ function actionDeposit(thisCreep) {
     }
   } else {
     // There is nowhere to drop it off in the current room
-    if (
+    // Move to within 5 tiles of the spawn. Then we drop it if everything is full
+    thisCreep.moveTo(Game.spawns["Spawn1"].pos, {
+      visualizePathStyle: { stroke: "#ffffff" },
+    })
+    /* if (
       thisCreep.room === Game.spawns["Spawn1"].room &&
       thisCreep.pos.getRangeTo(Game.spawns["Spawn1"].pos) < 5
     ) {
@@ -39,12 +43,7 @@ function actionDeposit(thisCreep) {
       thisCreep.say("DROP IT!")
       // There's an issue, so let's drop our resources and mosey on
       thisCreep.drop(RESOURCE_ENERGY)
-    } else {
-      // Move to within 5 tiles of the spawn. Then we drop it if everything is full
-      thisCreep.moveTo(Game.spawns["Spawn1"].pos, {
-        visualizePathStyle: { stroke: "#ffffff" },
-      })
-    }
+    } */
   }
 }
 
