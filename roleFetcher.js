@@ -17,7 +17,7 @@ var roleFetcher = {
       _.filter(
         thisCreep.pos.look(),
         (object) => object.type === "constructionSite"
-      ) === 0
+      ).length === 0
     ) {
       thisCreep.room.createConstructionSite(thisCreep.pos, STRUCTURE_ROAD)
     }
