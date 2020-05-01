@@ -45,8 +45,6 @@ var roleFetcher = {
       })
       // TODO: assign a number of fetchers dynamically?
 
-      console.log(droppedResources)
-
       if (droppedResources.length) {
         if (thisCreep.memory.droppedResourceNumber == null) {
           // Randomize current droppedResource assignment
