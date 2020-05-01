@@ -31,6 +31,7 @@ const convertRoomPositionStringBackToRoomPositionObject = (
   const roomName = stringRoomPosition.substring(6, 11) // e.g. E56N8
   const xCoordinate = Number(stringRoomPosition.substring(16, 18)) // e.g. 23
   const yCoordinate = Number(stringRoomPosition.substring(19, 21)) // e.g. 26
+  console.log(`${roomName} ${xCoordinate} ${yCoordinate}`)
   return new RoomPosition(xCoordinate, yCoordinate, roomName) // e.g. new RoomPosition(23, 26, "E56N8")
 }
 
