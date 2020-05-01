@@ -10,13 +10,6 @@ var roleFetcher = {
       thisCreep.body.filter((bodyPartObject) => bodyPartObject.type === CARRY)
         .length * CARRY_CAPACITY
 
-    // Top priority: Dropped resources that have at least our carrying capacity
-    const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
-      filter: function (resource) {
-        return resource.amount >= carryingCapacity
-      },
-    })
-
     if (thisCreep.store.getUsedCapacity() >= CARRY_CAPACITY) {
       // If we have at least 50 resources (CARRY_CAPACITY), which is
       // the same as EXTENSION_ENERGY_CAPACITY[0] (i.e. 50 energy)
@@ -27,6 +20,13 @@ var roleFetcher = {
     } else {
       // We can clear our marker of which structure we were filling
       thisCreep.memory.depositTargetNumber = null
+
+      // Top priority: Dropped resources that have at least our carrying capacity
+      const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
+        filter: function (resource) {
+          return resource.amount >= carryingCapacity
+        },
+      })
       if (droppedResources.length) {
         if (thisCreep.memory.droppedResourceNumber == null) {
           // Randomize current droppedResource assignment
