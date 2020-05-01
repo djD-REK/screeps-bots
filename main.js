@@ -68,7 +68,8 @@ module.exports.loop = function () {
   // Currently Game.spawns["Spawn1"].room.energyCapacityAvailable === 550
   if (
     Game.spawns["Spawn1"].room.energyAvailable >=
-    Game.spawns["Spawn1"].room.energyCapacityAvailable
+      Game.spawns["Spawn1"].room.energyCapacityAvailable &&
+    Game.spawns["Spawn1"].spawning == undefined
   ) {
     const harvesters = _.filter(
       Game.creeps,
@@ -121,14 +122,12 @@ module.exports.loop = function () {
       console.log("Spawning new miner: " + newName)
       // [WORK, WORK, MOVE, MOVE] // 300
       // [WORK, WORK, WORK, WORK, MOVE, MOVE] // 500
-      console.log(
-        Game.spawns["Spawn1"].spawnCreep(
-          [WORK, WORK, WORK, WORK, MOVE, MOVE],
-          newName,
-          {
-            memory: { role: "miner" },
-          }
-        )
+      Game.spawns["Spawn1"].spawnCreep(
+        [WORK, WORK, WORK, WORK, MOVE, MOVE],
+        newName,
+        {
+          memory: { role: "miner" },
+        }
       )
     } else if (upgraders.length < 5) {
       const newName = Game.time + "_" + "Upgrader" + upgraders.length
@@ -187,10 +186,14 @@ module.exports.loop = function () {
   }
 
   // Visual display if spawn is spawning
-  if (Game.spawns["Spawn1"].spawning) {
-    const spawningCreep = Game.creeps[Game.spawns["Spawn1"].spawning.name]
+  const spawnObject = Game.spawns["Spawn1"].spawning
+  if (spawnObject) {
+    const spawningCreep = Game.creeps[spawnObject.name]
     Game.spawns["Spawn1"].room.visual.text(
-      "🛠️" + spawningCreep.memory.role,
+      "🛠️" +
+        spawningCreep.memory.role +
+        Math.floor(spawnObject.remainingTime / spawnObject.needTime) +
+        "%",
       Game.spawns["Spawn1"].pos.x + 1,
       Game.spawns["Spawn1"].pos.y,
       { align: "left", opacity: 0.8 }
