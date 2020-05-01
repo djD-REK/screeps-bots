@@ -110,8 +110,8 @@ module.exports.loop = function () {
     } else if (fetchers.length < miners.length) {
       const newName = Game.time + "_" + "Fetcher" + fetchers.length
       console.log("Spawning new fetcher: " + newName)
+      //        [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY], // 300
       Game.spawns["Spawn1"].spawnCreep(
-        //        [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY], // 300
         [MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY], // 500
         newName,
         { memory: { role: "fetcher" } }
@@ -121,12 +121,14 @@ module.exports.loop = function () {
       console.log("Spawning new miner: " + newName)
       // [WORK, WORK, MOVE, MOVE] // 300
       // [WORK, WORK, WORK, WORK, MOVE, MOVE] // 500
-      Game.spawns["Spawn1"].spawnCreep(
-        [WORK, WORK, WORK, WORK, MOVE, MOVE],
-        newName,
-        {
-          memory: { role: "miner" },
-        }
+      console.log(
+        Game.spawns["Spawn1"].spawnCreep(
+          [WORK, WORK, WORK, WORK, MOVE, MOVE],
+          newName,
+          {
+            memory: { role: "miner" },
+          }
+        )
       )
     } else if (upgraders.length < 5) {
       const newName = Game.time + "_" + "Upgrader" + upgraders.length
