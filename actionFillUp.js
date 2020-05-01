@@ -25,6 +25,25 @@ function actionFillUp(thisCreep) {
         visualizePathStyle: { stroke: "#ffffff" },
       })
     }
+  } else {
+    // Maybe there are some dropped resources we can go grab
+    const droppedResourceTarget = thisCreep.pos.findClosestByPath(
+      FIND_DROPPED_RESOURCES,
+      {
+        filter: function (resource) {
+          return resource.amount >= 0
+        },
+      }
+    )
+
+    if (droppedResourceTarget != null) {
+      thisCreep.say("🔄 PICK UP")
+      if (thisCreep.pickup(droppedResourceTarget) == ERR_NOT_IN_RANGE) {
+        thisCreep.moveTo(droppedResourceTarget, {
+          visualizePathStyle: { stroke: "#ffaa00" },
+        })
+      }
+    }
   }
 }
 
