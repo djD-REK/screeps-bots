@@ -18,6 +18,12 @@ function actionFillUp(thisCreep) {
   })
   if (targetFillUpSite != null) {
     // There is somewhere to fill up in the current room
+    console.log(
+      `${thisCreep.name} attempting withdraw with result ${thisCreep.withdraw(
+        targetFillUpSite,
+        RESOURCE_ENERGY
+      )}`
+    )
     if (
       thisCreep.withdraw(targetFillUpSite, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE
     ) {
