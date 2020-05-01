@@ -50,9 +50,6 @@ var roleFetcher = {
             Game.creeps[creepName].room === thisCreep.room &&
             creepName !== thisCreep.Name
         )
-        console.log(
-          `There are ${fetchers.length} other fetchers in ${thisCreep.room}`
-        )
         // Count other fetchers in the same room
         const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
           filter: function (resource) {
@@ -67,9 +64,7 @@ var roleFetcher = {
             thisCreep.memory.droppedResourceNumber = Math.floor(
               Math.random() * droppedResources.length
             )
-            thisCreep.memory.objective = String(
-              droppedResources[thisCreep.memory.droppedResourceNumber].pos
-            )
+            // TODO Set objective: thisCreep.memory.objective = String(              droppedResources[thisCreep.memory.droppedResourceNumber].pos            )
             thisCreep.say("🔄 PICK UP")
             console.log(
               `${thisCreep.name} assigned to @droppedResources[${thisCreep.memory.droppedResourceNumber}]`
