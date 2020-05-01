@@ -47,12 +47,16 @@ var roleFetcher = {
           Game.creeps[creepName].memory.role === "fetcher" &&
           Game.creeps[creepName].memory.objective != undefined &&
           Game.creeps[creepName].room === thisCreep.room &&
-          creepName !== thisCreep.Name
+          creepName !== thisCreep.name
       )
       // Count other fetchers in the same room
+      const targetResourceAmount = (fetchers.length * carryingCapacity) / 2
+      console.log(
+        `${thisCreep.name} is seeking energy drops >= ${targetResourceAmount} in room ${thisCreep.room}`
+      )
       const droppedResources = thisCreep.room.find(FIND_DROPPED_RESOURCES, {
         filter: function (resource) {
-          return resource.amount >= (fetchers.length * carryingCapacity) / 2
+          return resource.amount >= targetResourceAmount
         },
       })
       // Only target resources that have at least that many times carryingCapacity / 2
