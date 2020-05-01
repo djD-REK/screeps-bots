@@ -34,9 +34,11 @@ const roleBuilder = {
         ) {
           // There was a different error
           console.log(
-            `${thisCreep.name} error ${thisCreep.build(
+            `${thisCreep.name} build error ${thisCreep.build(
               buildSites[thisCreep.memory.buildSiteNumber]
-            )}`
+            )} when trying to build ${
+              buildSites[thisCreep.memory.buildSiteNumber]
+            }`
           )
           thisCreep.memory.buildSiteNumber = null
         }
