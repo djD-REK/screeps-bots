@@ -1,6 +1,4 @@
-const convertRoomPositionStringBackToRoomPositionObject = function (
-  stringRoomPosition
-) {
+function convertRoomPositionStringBackToRoomPositionObject(stringRoomPosition) {
   // input example: [room E56N8 pos 23,26]
   // output example: new RoomPosition(23, 26, 'E56N8');
   // Using the constructor for to create a new RoomPosition object: constructor(x, y, roomName)
@@ -21,5 +19,5 @@ const convertRoomPositionStringBackToRoomPositionObject = function (
   }
 }
 
+module.exports = convertRoomPositionStringBackToRoomPositionObject
 // [room E56N8 pos 0,45]
-export { convertRoomPositionStringBackToRoomPositionObject }
