@@ -20,7 +20,7 @@
 
 const actionExplore = require("actionExplore")
 
-const convertRoomPositionStringBackToRoomPositionObject = require("convertRoomPositionStringBackToRoomPositionObject")
+import { convertRoomPositionStringBackToRoomPositionObject } from "convertRoomPositionStringBackToRoomPositionObject"
 
 const assessSources = (thisCreep) => {
   const thisRoom = thisCreep.room

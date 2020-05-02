@@ -1,5 +1,5 @@
 // TODO: Refactor how destination is stored in memory with newer version (string)
-const convertRoomPositionStringBackToRoomPositionObject = require("convertRoomPositionStringBackToRoomPositionObject")
+import convertRoomPositionStringBackToRoomPositionObject from "convertRoomPositionStringBackToRoomPositionObject"
 
 function actionExplore(thisCreep) {
   // TODO: make sure destination is getting unset
@@ -65,4 +65,4 @@ function actionExplore(thisCreep) {
   }
 }
 
-module.exports = actionExplore
+export default actionExplore
