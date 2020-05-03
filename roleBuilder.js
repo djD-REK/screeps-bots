@@ -9,7 +9,7 @@ const roleBuilder = {
       actionFillUp(thisCreep)
     }
     if (thisCreep.store.getFreeCapacity() == 0) {
-      thisCreep.memory.mission = "EXPLORE"
+      thisCreep.memory.mission = "BUILD"
       const buildSites = thisCreep.room.find(FIND_MY_CONSTRUCTION_SITES)
       if (buildSites.length) {
         thisCreep.say("🚧 build")
@@ -44,6 +44,7 @@ const roleBuilder = {
       } else {
         thisCreep.memory.mission = "EXPLORE"
         thisCreep.memory.destination = null
+        thisCreep.memory.buildSiteNumber = null
         actionExplore(thisCreep)
       }
     }
