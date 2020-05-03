@@ -44,8 +44,7 @@ function actionExplore(thisCreep) {
     if (thisCreep.room.find(FIND_HOSTILE_CREEPS) > 1) {
       // Potentially a source keeper room or enemy room, leave it by walking back home
       thisCreep.moveTo(Game.spawns["Spawn1"].pos)
-    }
-    else {
+    } else {
       // Move toward the assigned exit tile
       thisCreep.moveTo(
         convertRoomPositionStringBackToRoomPositionObject(
@@ -54,8 +53,8 @@ function actionExplore(thisCreep) {
         {
           visualizePathStyle: { stroke: "#ffaa00" },
         }
-      }
-    )
+      )
+    }
   }
   if (
     thisCreep.pos.x === 0 ||
@@ -67,9 +66,8 @@ function actionExplore(thisCreep) {
     // Reset mission
     thisCreep.memory.mission = "THINK"
     thisCreep.memory.destination = null
-      // Move off the border by 1 step
-      thisCreep.moveTo(25, 25)
-    
+    // Move off the border by 1 step
+    thisCreep.moveTo(25, 25)
   }
 }
 
