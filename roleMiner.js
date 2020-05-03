@@ -115,7 +115,7 @@ const roleMiner = {
   run: function (thisCreep) {
     if (thisCreep.spawning === true) {
       // INIT mission
-      thisCreep.memory.home == thisCreep.room
+      thisCreep.memory.home = thisCreep.room
       thisCreep.memory.mission = "THINK"
     } else {
       if (thisCreep.memory.mission === "THINK") {
