@@ -5,9 +5,11 @@ const roleBuilder = {
   /** @param {Creep} thisCreep **/
   run: function (thisCreep) {
     if (thisCreep.store[RESOURCE_ENERGY] == 0) {
+      thisCreep.memory.mission = "FILL UP"
       actionFillUp(thisCreep)
     }
     if (thisCreep.store.getFreeCapacity() == 0) {
+      thisCreep.memory.mission = "EXPLORE"
       const buildSites = thisCreep.room.find(FIND_MY_CONSTRUCTION_SITES)
       if (buildSites.length) {
         thisCreep.say("🚧 build")
@@ -40,6 +42,8 @@ const roleBuilder = {
           thisCreep.memory.buildSiteNumber = null
         }
       } else {
+        thisCreep.memory.mission = "EXPLORE"
+        thisCreep.memory.destination = null
         actionExplore(thisCreep)
       }
     }
