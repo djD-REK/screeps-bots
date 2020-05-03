@@ -6,6 +6,7 @@ const roleBuilder = {
   run: function (thisCreep) {
     if (thisCreep.store[RESOURCE_ENERGY] < thisCreep.store.getCapacity()) {
       thisCreep.memory.mission = "FILL UP"
+      thisCreep.say("🚧 FILL UP")
       actionFillUp(thisCreep)
     }
     if (thisCreep.store.getFreeCapacity() === 0) {
