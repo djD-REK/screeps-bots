@@ -176,7 +176,7 @@ const roleMiner = {
       }
       if (thisCreep.memory.mission === "EXPLORE") {
         // Occasionally think about it
-        if (Math.random() < 0.1) {
+        if (Game.time % 10 === 0) {
           thisCreep.memory.mission === "THINK"
         }
         actionExplore(thisCreep)
