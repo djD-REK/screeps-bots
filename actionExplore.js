@@ -41,13 +41,19 @@ function actionExplore(thisCreep) {
         `Attempting to call convertRoomPositionStringBackToRoomPositionObject with value ${thisCreep.memory.destination}`
       )
     }
-    // Move toward the assigned exit tile
-    thisCreep.moveTo(
-      convertRoomPositionStringBackToRoomPositionObject(
-        thisCreep.memory.destination
-      ),
-      {
-        visualizePathStyle: { stroke: "#ffaa00" },
+    if (thisCreep.room.find(FIND_HOSTILE_CREEPS) > 1) {
+      // Potentially a source keeper room or enemy room, leave it by walking back home
+      thisCreep.moveTo(Game.spawns["Spawn1"].pos)
+    }
+    else {
+      // Move toward the assigned exit tile
+      thisCreep.moveTo(
+        convertRoomPositionStringBackToRoomPositionObject(
+          thisCreep.memory.destination
+        ),
+        {
+          visualizePathStyle: { stroke: "#ffaa00" },
+        }
       }
     )
   }
@@ -58,10 +64,12 @@ function actionExplore(thisCreep) {
     thisCreep.pos.y === 49
   ) {
     // At an exit on the 50x50 game board
+    // Reset mission
     thisCreep.memory.mission = "THINK"
     thisCreep.memory.destination = null
-    // Move off the border by 1 step
-    thisCreep.moveTo(25, 25)
+      // Move off the border by 1 step
+      thisCreep.moveTo(25, 25)
+    
   }
 }
 
