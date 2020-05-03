@@ -127,7 +127,7 @@ var roleFetcher = {
           }
         } else {
           // Explore
-          //        thisCreep.memory.mission = "Exploring"
+          thisCreep.memory.mission = "EXPLORE"
           actionExplore(thisCreep)
           /*if (Math.random() < 1 / 50) {
           // 1 in 50

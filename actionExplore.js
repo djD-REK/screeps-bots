@@ -35,18 +35,6 @@ function actionExplore(thisCreep) {
     console.log(
       `${thisCreep.name} assigned mission to EXPLORE to Destination ${thisCreep.memory.destination}`
     )
-  }
-  if (
-    thisCreep.pos.x === 0 ||
-    thisCreep.pos.x === 49 ||
-    thisCreep.pos.y === 0 ||
-    thisCreep.pos.y === 49
-  ) {
-    // At an exit on the 50x50 game board
-    thisCreep.memory.mission = "THINK"
-    thisCreep.memory.destination = null
-    // Move off the border by 1 step
-    thisCreep.moveTo(25, 25)
   } else {
     if (thisCreep.memory.destination == undefined) {
       console.log(
@@ -62,6 +50,18 @@ function actionExplore(thisCreep) {
         visualizePathStyle: { stroke: "#ffaa00" },
       }
     )
+  }
+  if (
+    thisCreep.pos.x === 0 ||
+    thisCreep.pos.x === 49 ||
+    thisCreep.pos.y === 0 ||
+    thisCreep.pos.y === 49
+  ) {
+    // At an exit on the 50x50 game board
+    thisCreep.memory.mission = "THINK"
+    thisCreep.memory.destination = null
+    // Move off the border by 1 step
+    thisCreep.moveTo(25, 25)
   }
 }
 
