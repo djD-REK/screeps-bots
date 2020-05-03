@@ -3,9 +3,12 @@ const actionFillUp = require("actionFillUp")
 const roleUpgrader = {
   /** @param {Creep} creep **/
   run: function (creep) {
-    if (creep.memory.upgrading && creep.store[RESOURCE_ENERGY] == 0) {
+    if (
+      creep.memory.upgrading &&
+      creep.store[RESOURCE_ENERGY] < creep.store.getCapacity()
+    ) {
       creep.memory.upgrading = false
-      creep.say("🔄 harvest")
+      creep.say("⚡ pick up")
     }
     if (!creep.memory.upgrading && creep.store.getFreeCapacity() == 0) {
       creep.memory.upgrading = true
